@@ -1,0 +1,180 @@
+{% extends 'TripPackages/base.html' %}
+{% load staticfiles %}
+{% block title %}AmièGoo{% endblock %}
+{% block body %}
+
+     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Volkhov" rel="stylesheet">
+    <link rel="stylesheet" href="{%  static "css/Home.css" %}">
+    <link rel="stylesheet" href="{% static "css/icofont/icofont.min.css" %}">
+
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+          <img class="d-block img-fluid" src="{% static "images/home/Alex.jpg" %}" alt="First slide">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block img-fluid" src="{% static "images/home/Cairo.jpg" %}" alt="Second slide">
+
+        </div>
+        <div class="carousel-item">
+          <img class="d-block img-fluid" src="{% static "images/home/Giza.jpg" %}" alt="Third slide">
+        </div>
+
+        <div class="carousel-item">
+          <img class="d-block img-fluid" src="{% static "images/home/Luxor.jpg" %}" alt="fourth slide">
+        </div>
+
+      <div class="carousel-item">
+          <img class="d-block img-fluid" src="{% static "images/home/Dahab.jpg" %}" alt="fifth slide">
+        </div>
+
+      <div class="carousel-item">
+          <img class="d-block img-fluid" src="{% static "images/home/Aswan.jpg" %}" alt="six slide">
+        </div>
+
+      </div>
+    </div>
+
+<div class="container-fluid">
+    <div class="carousel-caption  d-md-block">
+            <div class="title-over-caption">
+                Discover
+                <span class="dots dots-yellow"></span>
+                Customise
+                <span class="dots dots-green"></span>
+                Travel
+                <span class="dots dots-indigo"></span>
+            </div>
+            <h1>Create tailor-made tours with local travel agents </h1>
+    </div>
+    <div class="search">
+        <input type="text" id="myInput" onkeyup="filter()"   placeholder="Where you Would like to go?" title="Type in a name">
+        <ul id="myUL" style="display: none">
+            {% for city in cities %}
+              <li  onclick = "copyToinput(this)"><a >{{ city.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <button type="button"  class="btn btn-lg btn-primary searchBtn">Discover</button>
+
+        <button type="button" class="btn btn-lg btn-primary notSureBtn" >Not sure yet? Try ours</button>
+
+    </div>
+     <!-- Grid row -->
+      <div class="row discover">
+
+        <!-- Grid column -->
+        <div class="col-md-4">
+            <i class="icofont-telescope"></i>
+            <h6 class="font-weight-bold my-4">Discover</h6>
+            <p class="grey-text mb-md-0 mb-5">Get inspired and send a trip request to let us know what you're looking for.</p>
+
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-md-4">
+            <i class="icofont-ruler-pencil"></i>
+            <h6 class="font-weight-bold my-4">Customize</h6>
+            <p class="grey-text mb-md-0 mb-5">Customise your perfect trip itinerary with the local agency we match you with.</p>
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-md-4">
+            <i class="icofont-travelling"></i>
+            <h6 class="font-weight-bold my-4">Travel</h6>
+            <p class="grey-text mb-0">Book your tour securely and set off with AmièGoo! Guarantees.
+            </p>
+        </div>
+        <!-- Grid column -->
+      </div>
+    <!-- Grid row -->
+    <div class="row AmièGoo">
+        <h2>The Advantages of AmièGoo!</h2>
+        <div class="col-md-3 col-sm-6">
+            <i class="icofont-location-pin"></i>
+            <h4 class="font-weight-bold my-4">Local expertises</h4>
+            <p class="grey-text mb-0">From local gems to highlights, our agents have you covered</p>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <i class="icofont-cut"></i>
+            <h4 class="font-weight-bold my-4">100% tailor-made</h4>
+            <p class="grey-text mb-0">Customise a tour based around your needs and interests</p>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <i class="icofont-money"></i>
+            <h4 class="font-weight-bold my-4">Value for money</h4>
+            <p class="grey-text mb-0">Our prices don't include any middleman fee</p>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <i class="icofont-cash-on-delivery-alt"></i>
+            <h4 class="font-weight-bold my-4">Pay on spot</h4>
+            <p class="grey-text mb-0">No deposits to paid , All at airport</p>
+        </div>
+    </div>
+    <div class="row advantages">
+        <h2>Why Getting A Local Guide ?</h2>
+        <div class="col-md-4 col-sm-6">
+            <i class="icofont-search-map"></i>
+            <h4 class="font-weight-bold my-4">Secret spots</h4>
+            <p class="grey-text mb-0">Going to secret local spots that the majority of other travelers will never experience</p>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+            <i class="icofont-history"></i>
+            <h4 class="font-weight-bold my-4">History</h4>
+            <p class="grey-text mb-0">Learning about the culture and history of the place more deeper</p>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+            <i class="icofont-book-alt"></i>
+            <h4 class="font-weight-bold my-4">Behavoir</h4>
+            <p class="grey-text mb-0">Learning more about behavior specially in religious sites</p>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+            <i class="icofont-question"></i>
+            <h4 class="font-weight-bold my-4">Ask</h4>
+            <p class="grey-text mb-0">Asking more questions as you want</p>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+            <i class="icofont-pencil-alt-1"></i>
+            <h4 class="font-weight-bold my-4">Personalize</h4>
+            <p class="grey-text mb-0">Personalize your tour to fit needs</p>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+            <i class="icofont-earth"></i>
+            <h4 class="font-weight-bold my-4">Travel</h4>
+            <p class="grey-text mb-0">Exploring places you can't otherwise access</p>
+        </div>
+    </div>
+
+    <div class="row subscribe">
+        <div class="overHeader">
+            <span class="pyramids"></span>
+            <span class="pyramids"></span>
+            <span class="pyramids"></span>
+        </div>
+
+        <h2>Subscribe to receive our trip ideas and travel offers!</h2>
+{#        <p>You have successfully subscribed to Evaneos' newsletter! Keep an eye open on your inbox for local tips, travel inspiration, and exclusive offers</p>#}
+
+        <form method="POST" enctype="multipart/form-data">
+             {% csrf_token %}
+            <input type="email" name="email" id="email" placeholder="Enter your email address..." required>
+            <input type="submit"  class="btn btn-lg btn-primary " value="Subscribe">
+            <section class="checkbox">
+                <input type="checkbox" required> I would like to receive AmièGoo! newsletters by email
+            </section>
+        </form>
+    </div>
+
+    <footer class="row" >
+        <i class="fab fa-facebook-square  fa-3x"></i>
+        <i class="fab fa-instagram  fa-3x"></i>
+        <i class="fab fa-twitter fa-3x"></i>
+    </footer>
+</div>
+
+    <script src="{% static "js/Home.js" %}"></script>
+{% endblock %}

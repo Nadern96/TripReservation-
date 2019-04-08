@@ -1,0 +1,141 @@
+.modal {
+    display: none; /* Hidden by default */
+    z-index: 4; /* Sit on top */
+    overflow: auto;
+    background-color: rgba(39,38,36,0.7); /* Black w/ opacity */
+}
+.modal form {
+    max-width:400px;
+    min-height: 450px;
+    margin:50px auto;
+    border: none; 
+    border-radius: 10px;
+    background-color: #1D2C4F;
+    position: relative;
+}
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 10px;
+    top: -10px;
+    color: #00F5E1;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #FFFFFF;
+  cursor: pointer;
+}
+/*** Close Button */
+.modal form .top-background {
+    width:100%;
+    height: 150px;
+    background-image: url("../images/base/fDs0w.png");
+}
+.modal form .top-background img {
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    left: 150px;
+    top:80px;
+}
+.modal form .sign-in {
+    width:50%;
+    height: 70px;
+    background-color: #00F5E1;
+    border: none;
+    text-align: center;
+    position: absolute;
+    top: -20px;
+    left: 25%;
+}
+.modal form .sign-in  span {
+    display: block;
+    padding-top: 25px;
+    font-size: 20px;
+    color: #98A2BD;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+.modal form fieldset {
+    border: none;
+    width:80%;
+    margin: auto;
+    margin-top:50px;
+}
+.modal form section{
+    margin:0 auto;
+    margin-bottom: 15px;
+    position: relative;
+}
+.modal form section input {
+    width: 100%;
+    height: 40px;
+    background-color: #4E5875;;
+    color: #16191D;
+    border: none;
+    border-radius: 10px;
+    padding-left: 50px;
+    font-size: 16px;
+}
+.modal form section input:focus{
+    outline: none;
+}
+.modal form section i {
+    color: #98A2BD;
+    position: absolute;
+    top: 13px;
+    left: 15px;
+}
+.modal fieldset input[type=checkbox]{
+    width:15px;
+    height: 15px;
+    position: absolute;
+    bottom: 120px;
+    left: 45px;
+}
+.modal fieldset  span{
+    font-size: 13px;
+    color: #00BCB8;
+}
+.modal fieldset  span.check-name {
+    margin-right: 60px;
+    margin-left: 25px;
+    color: #FFFFFF;
+}
+.modal form input[type=submit] {
+    width: 80%;
+    height: 40px;
+    display: block;
+    margin: auto;
+    margin-top:20px;
+    background-color: #00F5E1;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    color: #98A2BD;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.modal form .createAcc {
+    width: 80%;
+    margin:0 auto;
+    text-align: center;
+    margin-top: 15px;
+}
+
+
+@media (max-width: 560px){
+    .modal fieldset  span.check-name{
+        margin-right: 40px;
+    }
+
+    .modal form {
+        margin: 0;
+    }
+
+}

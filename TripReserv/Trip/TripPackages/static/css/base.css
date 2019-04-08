@@ -1,6 +1,6 @@
 .navbar{
     padding: 3px 50px;
-    z-index: 10;
+    z-index: 2;
 }
 .navbar-fixed {
     position: fixed; /* Set the navbar to fixed position */
