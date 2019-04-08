@@ -27,14 +27,15 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'TripPackages',
+    'TripPackages.apps.TrippackagesConfig',
+    'designTrip.apps.DesigntripConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.staticfiles',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'CustomUser'
+    'CustomUser.apps.CustomuserConfig'
 
 ]
 
