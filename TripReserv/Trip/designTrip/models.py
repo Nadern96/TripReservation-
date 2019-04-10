@@ -1,0 +1,23 @@
+from django.db import models
+
+class DesignTrip(models.Model):
+    trip_type = models.CharField(max_length=50,blank=True)
+    about_trip = models.CharField(max_length=50,blank=True)
+    budget = models.IntegerField(blank=True)
+    travel_with = models.CharField(max_length=50,blank=True)
+    couple_question = models.CharField(max_length=50,blank=True)
+    adult_number = models.IntegerField(blank=True)
+    chidren_number = models.IntegerField(blank=True)
+    exact_date = models.CharField(max_length=50,blank=True)
+    arrival_date = models.DateField(blank=True)
+    departure_date = models.DateField(blank=True)
+    month = models.CharField(max_length=50,blank=True)
+    period = models.CharField(max_length=50,blank=True)
+    begin_trip =models.CharField(max_length=50,blank=True)
+    agent_language = models.CharField(max_length=50,blank=True)
+    agent_time = models.CharField(max_length=50,blank=True)
+    agent_welcome = models.CharField(max_length=50,blank=True)
+    agent_byeby = models.CharField(max_length=50,blank=True)
+    agent_car = models.CharField(max_length=50,blank=True)
+    agent_camera = models.CharField(max_length=50,blank=True)
+    additional_info = models.TextField(max_length=1000,blank=True)
