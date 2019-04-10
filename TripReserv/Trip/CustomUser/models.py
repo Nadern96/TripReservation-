@@ -1,85 +1,114 @@
-"""Declare models for YOUR_APP app."""
-
-from __future__ import unicode_literals
 
 from django.db import models
-from django.core.mail import send_mail
-from django.contrib.auth.models import PermissionsMixin
-from django.contrib.auth.base_user import AbstractBaseUser
-from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import (
+    BaseUserManager, AbstractBaseUser
+)
 
-from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
 class UserManager(BaseUserManager):
-    """Define a model manager for User model with no username field."""
-
-    use_in_migrations = True
-
-    def _create_user(self, email, password, **extra_fields):
-        """Create and save a User with the given email and password."""
+    def create_user(self, email,full_name, password=None,is_active=True,is_staff=False,is_admin=False):
+        """
+        Creates and saves a User with the given email and password.
+        """
         if not email:
-            raise ValueError('The given email must be set')
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+            raise ValueError('Users must have an email address')
+
+        if not password:
+            raise ValueError('Users must have a Password')
+
+        if not full_name:
+            raise ValueError('users must have a fullname')
+        user = self.model(
+            email=self.normalize_email(email),
+            full_name = full_name
+        )
         user.set_password(password)
+       
+        user.admin = is_admin
+        user.staff = is_staff
+        user.active = is_active
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password=None, **extra_fields):
-        """Create and save a regular User with the given email and password."""
-        extra_fields.setdefault('is_staff', False)
-        extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, password, **extra_fields)
+    def create_staffuser(self, email,full_name, password):
+        """
+        Creates and saves a staff user with the given email and full_name and password.
+        """
+        user = self.create_user(
+            email,
+            full_name,
+            password=password,
+            is_staff=True,
+        )
+        return user
 
-    def create_superuser(self, email, password, **extra_fields):
-        """Create and save a SuperUser with the given email and password."""
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+    def create_superuser(self, email, full_name,password):
+        """
+        """
+        user = self.create_user(
+        #Creates and saves a superuser with the given email and fullname and password.
+            email,
+            full_name,
+            password=password,
+            is_staff=True,
+            is_admin=True,
+        )
+     
+        return user
 
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-
-        return self._create_user(email, password, **extra_fields)
 
 
-class User(AbstractUser):
-    """User model."""
 
-    email = models.EmailField(_('email address'), unique=True)
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
-    is_active = models.BooleanField(_('active'), default=True)
-    date_of_birth = models.DateTimeField(_('date_of_birth'), auto_now_add=True,null=True)
-    phone_number = models.CharField(_('phone number'), max_length=30, blank=True)
-    
-    
+
+class User(AbstractBaseUser):
+    email = models.EmailField(
+        verbose_name='email address',
+        max_length=255,
+        unique=True,
+    )
+    active = models.BooleanField(default=True) # can login
+    staff = models.BooleanField(default=False) # a admin user; non super-user
+    admin = models.BooleanField(default=False) # a superuser
+    full_name = models.CharField(max_length=255,blank=True,null=True)
+    # notice the absence of a "Password field", that's built in.
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
+    REQUIRED_FIELDS = ['full_name'] # Email & Password are required by default.
     objects = UserManager()
 
     def get_full_name(self):
-        '''
-        Returns the first_name plus the last_name, with a space in between.
-        '''
-        full_name = '%s %s' % (self.first_name, self.last_name)
-        return full_name.strip()
+        # The user is identified by their email address
+        return self.full_name
 
     def get_short_name(self):
-        '''
-        Returns the short name for the user.
-        '''
-        return self.first_name
+        # The user is identified by their email address
+        return self.full_name
 
-    def email_user(self, subject, message, from_email=None, **kwargs):
-        '''
-        Sends an email to this User.
-        '''
-        send_mail(subject, message, from_email, [self.email], **kwargs)
-    
-    def __str__(self):
+    def __str__(self):              # __unicode__ on Python 2
         return self.email
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        return self.staff
+
+    @property
+    def is_admin(self):
+        "Is the user a admin member?"
+        return self.admin
+
+    @property
+    def is_active(self):
+        "Is the user active?"
+        return self.active
+

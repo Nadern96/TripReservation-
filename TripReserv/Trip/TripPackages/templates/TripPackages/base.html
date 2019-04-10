@@ -52,10 +52,23 @@
                 </ul>
 
 
-                <ul class="navbar-nav navbar-right">
+                <ul class="navbar-nav navbar-right ">
+                    <!--For displaying messages-->
+                    <li class="nav-item">
+                        {% if messages %}
+                            {% for message in messages%}
+                                <li style="margin:0" class="alert alert-{{message.tags}}">{{message}}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </li>
 
                     {% if user.is_authenticated %}
-                        <i class="far fa-user "></i><p> Hi  {{ user.get_full_name }}! <a href="{% url 'logout_user' %}">logout</a></p>
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-user "></i> {{ user.get_full_name }}</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item"  style="text-decoration:none;" href="{% url 'logout_user' %}"><span style="color:#4ac0d6">logout</span></a>
+                            </div>
+                        </li>
                     {% else %}
                     <a class="nav-link " href="#" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">
                         <i class="far fa-user "></i>  <span >Sign into my AmièGoo! Account </span>
@@ -67,8 +80,11 @@
     </nav>
 
     <div id="id01" class="modal">
-        <form id="sign-in" method="POST" role="form" action="{% url 'login_user'%}" enctype="multipart/form-data" >
+        <form id="sign-in" method="POST" role="form" action="{% url 'login_page'%}" enctype="multipart/form-data" >
             {% csrf_token %}
+
+            <!--After you processed your form you can redirect to the value of this path.-->
+            <input type="hidden" name="next" value="{{ request.path }}">
 
             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close">&times;</span>
             <div class="sign-in">
@@ -80,12 +96,12 @@
 
             <fieldset>
                 <section>
-                    <input type="email" name="email" placeholder="Email">
+                    <input type="email" name="email" placeholder="Email" required>
                     <i class="fas fa-user"></i>
                 </section>
 
                 <section>
-                    <input type="password" name="password" placeholder="Password">
+                    <input type="password" name="password" placeholder="Password" required>
                     <i class="fas fa-lock"></i>
                 </section>
 
@@ -102,8 +118,11 @@
         </form>
 
 
-        <form id="sign-up" style="display: none" method="POST" role="form" action="{% url 'login_user'%}" enctype="multipart/form-data" >
+        <form id="sign-up" style="display: none" method="POST" role="form" action="{% url 'signUp'%}" enctype="multipart/form-data" >
             {% csrf_token %}
+             
+            <!--After you processed your form you can redirect to the value of this path.-->
+            <input type="hidden" name="next" value="{{ request.path }}">
 
             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close">&times;</span>
             <div class="sign-in">
@@ -115,25 +134,24 @@
 
             <fieldset>
                 <section>
-                    <input type="text" name="firstName" placeholder="First Name">
+                    <input type="text" name="full_name" placeholder="Full name" required>
                     <i class="fas fa-user"></i>
                 </section>
 
                 <section>
-                    <input type="text" name="lastName" placeholder="Last Name">
+                    <input type="email" name="email" placeholder="Email" required>
                     <i class="fas fa-user"></i>
                 </section>
 
                 <section>
-                    <input type="email" name="email" placeholder="Email">
-                    <i class="fas fa-user"></i>
-                </section>
-
-                <section>
-                    <input type="password" name="passowrd" placeholder="Password">
+                    <input type="password" name="password1" placeholder="Password" required>
                     <i class="fas fa-lock"></i>
                 </section>
 
+                <section>
+                    <input type="password" name="password2" placeholder="Confirm Password" required>
+                    <i class="fas fa-lock"></i>
+                </section>
             </fieldset>
             <input  type="submit" value="Create account">
             <section  class="createAcc">
@@ -144,13 +162,7 @@
         </form>
     </div>
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
+   
     {% block body %}
     {% endblock %}
 

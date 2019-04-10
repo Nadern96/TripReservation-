@@ -27,15 +27,14 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'TripPackages.apps.TrippackagesConfig',
-    'designTrip.apps.DesigntripConfig',
+    'TripPackages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.staticfiles',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'CustomUser.apps.CustomuserConfig'
+    'CustomUser'
 
 ]
 
@@ -141,3 +140,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
      os.path.join(BASE_DIR, "static"),
 ]
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'primary',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
