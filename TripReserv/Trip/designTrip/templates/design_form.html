@@ -24,16 +24,16 @@
 
                     <br>
 						<div class="steps">
-                            <span class="step" onclick="step_button(0);"></span>
-						    <span class="step" onclick="step_button(1);"></span>
-						    <span class="step" onclick="step_button(2);"></span>
-                            <span class="step" onclick="step_button(3);"></span>
+                            <span class="step" onclick="step_button(0);" id="step1"></span>
+						    <span class="step" onclick="step_button(1);" id="step2"></span>
+						    <span class="step" onclick="step_button(2);" id="step3"></span>
+                            <span class="step" onclick="step_button(3);" id="step4"></span>
 						</div>
                     <br>
                     <br>
                     <h3 id="tabheader">This Form Will Help Your Local Agent to Create Your Program Based on Your Needs</h3>
                     
-                    <form id="design_form" method="post" enctype="multipart/form-data">
+                    <form id="design_form" method="post" enctype="multipart/form-data" action={% url 'design_form_get' %}>
                     {% csrf_token %}
                     <!-- first tab -->
                     <div class="tab">
@@ -61,13 +61,13 @@
                     </div>
                     <div id="whereToGo">
                         <h4 class="Questions">Your Trip Could Include...</h4>
-                        <button type="button" class="btn btn-info city" disabled  id="cairo" >Cairo</button>
-                        <button type="button" class="btn btn-info city" disabled  id="alexandria" >Alexandria</button>
-                        <button type="button" class="btn btn-info city" disabled  id="luxour" >Luxour</button>
-                        <button type="button" class="btn btn-info city" disabled  id="aswan" >Aswan</button>
-                        <button type="button" class="btn btn-info city" disabled  id="dahab" >Dahab</button>
-                        <button type="button" class="btn btn-info city" disabled  id="marsa_alam" >Marsa Alam</button>
-                        <button type="button" class="btn btn-info city" disabled  id="siwa" >Siwa</button>
+                        <button type="button" class="btn btn-info city large" disabled  id="cairo" >Cairo</button>
+                        <button type="button" class="btn btn-info city large" disabled  id="alexandria" >Alexandria</button>
+                        <button type="button" class="btn btn-info city large" disabled  id="luxour" >Luxour</button>
+                        <button type="button" class="btn btn-info city large" disabled  id="aswan" >Aswan</button>
+                        <button type="button" class="btn btn-info city large" disabled  id="dahab" >Dahab</button>
+                        <button type="button" class="btn btn-info city large" disabled  id="marsa_alam" >Marsa Alam</button>
+                        <button type="button" class="btn btn-info city large" disabled  id="siwa" >Siwa</button>
                     </div>
 
                         <div id="about_trip_question">
@@ -76,11 +76,11 @@
                         <div class="form-row">
                            <div class="col-md-4">
                                <label class="radio-container m-r-45">Highlights
-                                   <input type="checkbox" onchange="checkbox_error();" name="about_trip" id="highlights" value="Highlights">
+                                   <input type="checkbox" onchange="checkbox_error(this);" name="about_trip" id="highlights" value="Highlights">
                                    <span class="checkmark square"></span>
                                </label>
                                <label class="radio-container">Off the beaten track
-                                   <input type="checkbox" onchange="checkbox_error();" name="about_trip" id="off_the_beaten_track" value="Off the beaten track">
+                                   <input type="checkbox" onchange="checkbox_error(this);" name="about_trip" id="off_the_beaten_track" value="Off the beaten track">
                                    <span class="checkmark square"></span>
                                </label>
                            </div>
@@ -92,7 +92,7 @@
                         <br>
                         <h4 class="Questions">Your Average Budget per person($)<span class="error_message" id="budget_error">Error!!:you forgot to answer this question</span></h4>
                         <div class="form-row">
-                               <input class="number" onchange="budget_error();" type="number" value="0" step="100" max="10000" min="0" id="budget">
+                               <input class="number" onchange="budget_error();" type="number" value="0" step="100" max="10000" min="0" id="budget" name="budget">
                         </div>
                         <span class="error_message_mobile" id='budget_error_mobile'>Error!!: you forgot to answer this question</span>
                     </div>
@@ -154,12 +154,12 @@
                            <div class="form-group" style="margin-right: 10px">
                                <label class="number_label">Adult
                                </label>
-                               <input class="number" type="number" value="1" step="1" max="10" min="1" id="number_adult">
+                               <input class="number" type="number" value="1" step="1" max="10" min="1" id="number_adult" name="adult_number">
                            </div>
                             <div class="form-group">
                                <label class="number_label">Children
                                </label>
-                               <input class="number" type="number" value="0" step="1" max="10" min="0" id="number_children">
+                               <input class="number" type="number" value="0" step="1" max="10" min="0" id="number_children" name="chidren_number">
                            </div>
                         </div>
                         <span class="error_message" id='number_people_error'>Error!!: you forgot to answer this question</span>
@@ -187,16 +187,37 @@
 
                     <div id="notSure_date" class="variable_question2">
                         <br>
-                        <h4 class="Questions">Do you have a rough idea?</h4>
+                        <h4 class="Questions">Do you have a rough idea?<span class="error_message" id='notSure_date_error'>Error!!:you forgot to answer this question</span></h4>
                         <div class="form-row">
                             <div class="col-md-3">
-                                 <input type="text" class="form-control" name="month" id="month" placeholder="Month(approx)">
+                            <label for="month" class='form_label'>Month(approx)</label>
+                                <select class="form-control" name="month" id="month" onchange="Tab2_notSure_questionDrop();">
+                                    <option id="month_default" selected disabled>Month(approx)</option>
+                                    <option id="option1"></option>
+                                    <option id="option2"></option>
+                                    <option id="option3"></option>
+                                    <option id="option4"></option>
+                                    <option id="option5"></option>
+                                    <option id="option6"></option>
+                                    <option id="option7"></option>
+                                    <option id="option8"></option>
+                                    <option id="option9"></option>
+                                    <option id="option10"></option>
+                                </select>
                             </div>
                             <div class="col-md-3">
-                                 <input type="text" class="form-control" name="month" id="how_long" placeholder="How long(approx)?  ">
+                            <label for="period" class='form_label'>How Long(approx)</label>
+                                <select class="form-control" name="period" id="period" onchange="Tab2_notSure_questionDrop();">
+                                    <option value="period_default" selected disabled>How Long(approx)?</option>
+                                    <option id="op1"></option>
+                                    <option id="op2"></option>
+                                    <option id="op3"></option>
+                                    <option id="op4"></option>
+                                    <option id="op5"></option>
+                                    <option id="op6"></option>
+                                </select>
                             </div>
                         </div>
-                        <span class="error_message" id='notSure_date_error'>Error!!:you forgot to answer this question</span>
                         <span class="error_message_mobile" id='notSure_date_error_mobile'>Error!!: you forgot to answer this question</span>
                     </div>
 
@@ -419,9 +440,9 @@
                                 <img src="{% static 'design_form/images/hide22.png'%}" onclick='toggle_password(this);' id='password_hide_signin' class="input_img">
                             </div>
                             <span class="form_error" id='password_error_signin'>Error!!: Please Enter Your Password</span>
+                            <span class="password_succes" id='password_succes_signin'>successfully Signed In</span>
                         </div>
                         <br>
-
             
                     </div>
 
@@ -432,9 +453,20 @@
                     <br>
                     <label for="password" class='form_label'>Create Your Password</label>
                         <div class="w_75 input-group mb-1">
-                        <input type="password" id='password_input_signup'onchange="Tab4_password_signup(this);" name="password_signup" class="form-control" placeholder="password">
-                        <img src="{% static 'design_form/images/view22.png'%}" onclick='toggle_password(this);' id='password_view_signup' class="input_img">
-                        <img src="{% static 'design_form/images/hide22.png'%}" onclick='toggle_password(this);' id='password_hide_signup' class="input_img">
+                            <input type="password" id='password_input_signup' onchange="Tab4_password_signup(this);" name="password_signup" class="form-control" placeholder="password">
+                            <img src="{% static 'design_form/images/view22.png'%}" onclick='toggle_password(this);' id='password_view_signup' class="input_img">
+                            <img src="{% static 'design_form/images/hide22.png'%}" onclick='toggle_password(this);' id='password_hide_signup' class="input_img">
+                        </div>
+                        <span class="form_error" id='password_notStrong'>Error!!: Your password is not strong enough</span>
+                        <span class="form_error" id='password_error'>Error!!: you forgot to answer this question</span>
+                    </div>
+                    <div id='password_div_signup2' class='form-group'>
+                    <br>
+                    <label for="password2" class='form_label'>Please Enter Your Password Again</label>
+                        <div class="w_75 input-group mb-1">
+                            <input type="password" id='password_input_signup2' onchange="Tab4_password_signup2(this);" name="password_signup2" class="form-control" placeholder="password">
+                            <img src="{% static 'design_form/images/view22.png'%}" onclick='toggle_password(this);' id='password_view_signup2' class="input_img">
+                            <img src="{% static 'design_form/images/hide22.png'%}" onclick='toggle_password(this);' id='password_hide_signup2' class="input_img">
                         </div>
                         <span class="password_info">Your Password must contain at least:
                            <ul>
@@ -443,8 +475,8 @@
                                 <li>1 letter</li>
                            </ul> 
                         </span>
-                        <span class="form_error" id='password_notStrong'>Error!!: Your password is not strong enough</span>
-                        <span class="form_error" id='password_error'>Error!!: you forgot to answer this question</span>
+                        <span class="form_error" id='password_notStrong2'>Error!!: Your Entered Password do not match</span>
+                        <span class="form_error" id='password_error2'>Error!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="title_question">
@@ -534,7 +566,10 @@
 
 
                     <div class="hidden_inputs">
-                        <input type="text" id="trip_type" class="form-control">
+                        <input type="text" id="trip_type" name='trip_type' class="form-control">
+                        <input type="text" id="about_trip" name='about_trip' class="form-control">
+                        <input type="text" id="country_complete" name='country_complete' class="form-control">
+                        <input type="text" id="mobile_complete" name='mobile_complete' class="form-control">
                     </div>
 
                     </form>
@@ -543,9 +578,9 @@
 
 
                     <div class="next_previous">
-                        <button type="button" id="next" class="btn btn-outline-success"
+                        <button type="button" id="next" class="btn btn-outline-success large"
                             onclick="nextPrev(1)">Next</button>
-                        <button type="button" id="previous" class="btn btn-outline-secondary"
+                        <button type="button" id="previous" class="btn btn-outline-secondary large"
                                 onclick="nextPrev(-1)">Previous</button>
                     </div>
 

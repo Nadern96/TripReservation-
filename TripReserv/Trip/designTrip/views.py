@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from CustomUser.models import User
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login , logout
+from .form_save import DesignTrip_formSave, User_SignUp
 
 # Create your views here.
 
@@ -30,8 +31,7 @@ def ajaxSignIn(request):
     if user is not None:
         if user.is_active:
             login(request, user)
-            signIn_status = "Okay"
-            return HttpResponse('%s' % signIn_status)
+            return HttpResponse('%s' % "yes")
         else:
             signIn_status = "You are not active"
             return HttpResponse('%s' % signIn_status)
@@ -45,12 +45,16 @@ def check_auth(request):
     else:
         return HttpResponse('%s' % "no")
 
-def design_from_get(request):
-    email = request.POST.get('email', False)
+def design_form_get(request):
     if request.user.is_authenticated:
-        pass
-    elif email and User.objects.filter(email=email).count() !=0:
-        pass
+        DesignTrip_formSave(request,request.user,False)
+        return redirect('test')    
     else:
-        pass
+        user = User_SignUp(request)
+        DesignTrip_formSave(request,user,True)
+        return redirect('test')
         
+
+
+def test(request):
+    return render(request,'test.html')

@@ -67,10 +67,15 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    active = models.BooleanField(default=True) # can login
+    active = models.BooleanField(default=False) # can login
     staff = models.BooleanField(default=False) # a admin user; non super-user
     admin = models.BooleanField(default=False) # a superuser
     full_name = models.CharField(max_length=255,blank=True,null=True)
+    title = models.CharField(max_length=50,blank=True,null=True)
+    country = models.CharField(max_length=50,blank=True,null=True)
+    mobile = models.CharField(max_length=50,blank=True,null=True)
+    birthday = models.DateField(blank=True,null=True)
+    register_date = models.DateTimeField(auto_now_add=True,blank=True,null=True)
     # notice the absence of a "Password field", that's built in.
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name'] # Email & Password are required by default.

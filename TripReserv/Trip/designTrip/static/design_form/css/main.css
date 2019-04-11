@@ -227,7 +227,7 @@ h6 {
   position: absolute;
   width: 100%;
   top: 0;
-  z-index: 5;
+  z-index: 1;
 }
 .p-t-130 {
   padding-top: 60px;
@@ -586,4 +586,13 @@ h4 .error_message{
   color: #8c8a8a;
   text-transform: capitalize;
 }
+
+.password_succes{
+  font-family: 'Volkhov', serif;
+  font-size: 13px;
+  color: #8c7cff;
+  text-transform: capitalize;
+  display: none ;
+}
+
 

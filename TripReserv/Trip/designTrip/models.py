@@ -1,4 +1,5 @@
 from django.db import models
+from CustomUser.models import User
 
 class DesignTrip(models.Model):
     trip_type = models.CharField(max_length=50,blank=True)
@@ -9,15 +10,16 @@ class DesignTrip(models.Model):
     adult_number = models.IntegerField(blank=True)
     chidren_number = models.IntegerField(blank=True)
     exact_date = models.CharField(max_length=50,blank=True)
-    arrival_date = models.DateField(blank=True)
-    departure_date = models.DateField(blank=True)
+    arrival_date = models.DateField(blank=True,null=True)
+    departure_date = models.DateField(blank=True,null=True)
     month = models.CharField(max_length=50,blank=True)
     period = models.CharField(max_length=50,blank=True)
     begin_trip =models.CharField(max_length=50,blank=True)
     agent_language = models.CharField(max_length=50,blank=True)
     agent_time = models.CharField(max_length=50,blank=True)
     agent_welcome = models.CharField(max_length=50,blank=True)
-    agent_byeby = models.CharField(max_length=50,blank=True)
+    agent_byebye = models.CharField(max_length=50,blank=True)
     agent_car = models.CharField(max_length=50,blank=True)
     agent_camera = models.CharField(max_length=50,blank=True)
     additional_info = models.TextField(max_length=1000,blank=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True)
