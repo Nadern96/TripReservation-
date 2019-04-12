@@ -1,0 +1,37 @@
+{% extends 'TripPackages/base.html' %}
+{% load staticfiles %}
+{% block title %}Design Your Trip {% endblock %}
+
+{% block body %}
+
+
+    <!-- Main CSS-->
+    <link href="{% static 'design_form/css/main.css' %}" rel="stylesheet" media="all">
+
+
+<h1 class="title" id="title">Design Your Trip With Us</h1>
+
+    <div class="page-wrapper p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages%}
+                            <h4 style="margin:0" class="alert alert-{{message.tags}}">{{message}}</h4>
+                        {% endfor %}
+                    {% endif %}
+=                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+            <img class="d-block img-fluid" src="{% static "design_form/images/philae_island_aswan_2317.jpg" %}" alt="First slide">
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -319,10 +319,6 @@ function showTab(n) {
         document.getElementById("next").style.display = "inline";
         document.getElementById("next").innerHTML = "Sign Up and Send Request";
       }
-      else if(document.getElementById('signin_div').style.display === 'inline'){
-        document.getElementById("next").style.display = "inline";
-        document.getElementById("next").innerHTML = "Send Request";
-      }
       else{
         document.getElementById("next").style.display = "none";
       } 
@@ -363,29 +359,7 @@ function nextPrev(n) {
     // put it in the  valid function when complete
     if(currentTab===3 && n===1 && isValid()){
         document.getElementsByClassName("step")[currentTab].className += " finish";
-        if(document.getElementById('next').innerHTML === "Sign In")
-        {
-            var email =document.getElementById('email_input').value;
-            var password = document.getElementById('password_input_signin').value;
-                $.ajax({
-                type: "POST",
-                url: 'ajax_signIn/',
-                data:{email,password},
-                success: function (auth) {
-                    if(auth==="yes"){
-                        authenticated = true;
-                        document.getElementById('password_succes_signin').style.display = "inline"
-                        document.getElementById('next').innerHTML = "Send Request";
-                    }   
-                    else{
-                        authenticated = false;
-                        document.getElementById('password_error_signin').style.display = "inline";
-                        document.getElementById('password_error_signin').innerHTML = "Error!!: Invalid Password"; 
-                    }      
-                }
-            });
-        }
-        else if(authenticated){
+        if(document.getElementById('next').innerHTML === "Send Request"){
             submitting = true;
             document.getElementsByClassName("step")[currentTab].className += " finish";
             document.getElementById('trip_type').value = trip_type;
@@ -665,11 +639,9 @@ $( document ).ready(function() {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('password_view_signup').style.display = 'none';
     document.getElementById('password_view_signup2').style.display = 'none';
-    document.getElementById('password_view_signin').style.display = 'none';
     document.getElementById('email_input').value = "";
     document.getElementById('address-country').value = "";
     document.getElementById('email_input').value = "";
-    document.getElementById('password_input_signin').value ="";
 
     $.ajax({
         type: "POST",
@@ -851,11 +823,8 @@ function Tab4_birthday(birthday){
         document.getElementById('birthDay_question_error').style.display = 'none';
 }
 
-function Tab4_password_signin(password){
 
-    if(password.value!=="")
-        document.getElementById('password_error_signin').style.display = 'none';
-}
+
 
 /* ---------------------------------------------------------------
                         Validation Function
@@ -866,7 +835,7 @@ function isValid(){
     var ScreenWidth = window.innerWidth
                 || document.documentElement.clientWidth
                 || document.body.clientWidth; // the or for all clients 
-    if(currentTab == 0){
+    /*if(currentTab == 0){
         var checkbox1 = document.getElementById('highlights');
         var checkbox2 = document.getElementById('off_the_beaten_track');
         var budget = document.getElementById('budget')
@@ -1435,26 +1404,9 @@ function isValid(){
                 valid = false;
             }  
         }
-        else if(document.getElementById('signin_div').style.display==="inline"){
-            // password question
-            var password_input_signin = document.getElementById('password_input_signin');
-            if(password_input_signin.value==="")
-            {
-                document.getElementById('password_error_signin').style.display = 'inline';   
-                //for scrooling to show error
-                if(valid){
-                    var navOffset = 100;
-                    var div_postion = $("#password_div_signin").offset().top - navOffset;
-                    $('html, body').animate({
-                        scrollTop: div_postion
-                    }, 1000); // 1000 for scroll speed
-                }
-                valid = false;
-            }
-        }
         return valid;
-    }
-
+    }*/
+    return valid;
  }
 
 
@@ -1567,20 +1519,9 @@ input.addEventListener('keyup', reset);
   
 /// fucntion to toggle password 
 function toggle_password(img){
-    var password_signin = document.getElementById('password_input_signin');
     var password_signup = document.getElementById('password_input_signup');
     var password_signup2 = document.getElementById('password_input_signup2');
-    if(img.id==="password_view_signin"){
-        password_signin.type = "password";
-        document.getElementById('password_view_signin').style.display = 'none';
-        document.getElementById('password_hide_signin').style.display = 'inline';
-    }
-    else if(img.id==="password_hide_signin"){
-        password_signin.type = "text";
-        document.getElementById('password_view_signin').style.display = 'inline';
-        document.getElementById('password_hide_signin').style.display = 'none';
-    }
-    else if(img.id==="password_view_signup"){
+    if(img.id==="password_view_signup"){
         password_signup.type = "password";
         document.getElementById('password_view_signup').style.display = 'none';
         document.getElementById('password_hide_signup').style.display = 'inline';
@@ -1643,7 +1584,6 @@ function checkEmail(){
 
 /// function on change email
 function hide_divs(){
-    document.getElementById('signin_div').style.display = "none";
     document.getElementById('signup_div').style.display = "none";
     document.getElementById('email_checked').style.display = 'none';
     document.getElementById('checkButton_div').style.display = 'inline';
@@ -1652,7 +1592,6 @@ function hide_divs(){
 
     //elemets reset
     document.getElementById('email_info').innerHTML = "";
-    document.getElementById('password_input_signin').value = "";
     document.getElementById('password_input_signup').value = "";
     document.getElementById('password_input_signup2').value = "";
     document.getElementById('ms').checked = false;
@@ -1680,17 +1619,15 @@ function password_IsStrong(password){
 function showSubTab(email_info){
 
     if(email_info ==="There is already an AmieGoo account set up with this email address"){
-        document.getElementById('signin_div').style.display = "inline";
         document.getElementById('signup_div').style.display = "none";
         document.getElementById('next').style.display = 'inline';
-        document.getElementById('next').innerHTML = 'Sign In';
+        document.getElementById('next').innerHTML = 'Send Request';
         document.getElementById('checkButton_div').style.display = 'none';
         document.getElementById('loading').style.display = "none";
         document.getElementById('email_checked').style.display = 'inline';
     }
     else if(email_info ==="No account with this email found please Create an account")
     {
-        document.getElementById('signin_div').style.display = "none";
         document.getElementById('signup_div').style.display = "inline";
         document.getElementById('next').style.display = 'inline';
         document.getElementById('next').innerHTML = 'Sign Up and Send Request';
@@ -1698,6 +1635,13 @@ function showSubTab(email_info){
         document.getElementById('loading').style.display = "none";
         document.getElementById('email_checked').style.display = 'inline';
         document.getElementById('birthday').disabled = false;
+    }
+    else if(email_info==="There is already an AmieGoo account set up with this email address But It Is Not Active Please Check Your Mail For Confirmation So You Can Make A Trip Request"){
+        document.getElementById('signup_div').style.display = "none";
+        document.getElementById('next').style.display = 'none';
+        document.getElementById('checkButton_div').style.display = 'none';
+        document.getElementById('loading').style.display = "none";
+        document.getElementById('email_checked').style.display = 'inline';
     }
 }
 

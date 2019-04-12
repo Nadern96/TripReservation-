@@ -23,3 +23,7 @@ class DesignTrip(models.Model):
     agent_camera = models.CharField(max_length=50,blank=True)
     additional_info = models.TextField(max_length=1000,blank=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True)
+    form_submitted_date = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+    
+    def __str__(self):
+        return self.user.get_full_name()
