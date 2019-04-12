@@ -123,9 +123,9 @@
 }
 .modal form .createAcc {
     width: 80%;
-    margin:0 auto;
+    margin:10px auto 10px auto;
+    
     text-align: center;
-    margin-top: 15px;
 }
 
 

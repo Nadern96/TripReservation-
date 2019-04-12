@@ -107,13 +107,21 @@
 
                     <input type="checkbox">
                     <span class="check-name">Remember me</span>
-                    <a href="#" style=" font-size: 13px; color: #00BCB8;">Forgot your password?</a>
+                    <a href="#" style=" font-size: 13px; color: #00BCB8;"
+                                onclick="document.getElementById('sign-in').style.display='none',
+                                document.getElementById('reset-pass').style.display='block'">
+                                Forgot your password?
+                    </a>
 
             </fieldset>
             <input  type="submit" value="LOGIN">
             <section  class="createAcc">
                <span style="color: white">New to AmièGoo!?</span>
-                <a href="#" onclick="document.getElementById('sign-in').style.display='none' , document.getElementById('sign-up').style.display='block'" style=" font-size: 13px; color: #00BCB8;"> Create an account</a>
+                <a href="#" onclick="document.getElementById('sign-in').style.display='none' , 
+                                    document.getElementById('sign-up').style.display='block'
+                                    document.getElementById('reset-pass').style.display='none' 
+                                    " style=" font-size: 13px; color: #00BCB8;"> Create an account
+                </a>
             </section>
         </form>
 
@@ -153,13 +161,47 @@
                     <i class="fas fa-lock"></i>
                 </section>
             </fieldset>
-            <input  type="submit" value="Create account">
+            <input  class="sign-up-submit" type="submit" value="Create account">
             <section  class="createAcc">
                <span style="color: white">Already a member?</span>
-                <a href="#" onclick="document.getElementById('sign-up').style.display='none' , document.getElementById('sign-in').style.display='block'" style=" font-size: 13px; color: #00BCB8;">
+                <a href="#" onclick="document.getElementById('sign-up').style.display='none' , 
+                                    document.getElementById('reset-pass').style.display='none' ,
+                                    document.getElementById('sign-in').style.display='block'" style=" font-size: 13px; color: #00BCB8;">
                     Sign in</a>
             </section>
         </form>
+
+        <form id="reset-pass" style="display: none"  method="POST" role="form" action="" enctype="multipart/form-data" >
+            {% csrf_token %}
+
+            <!--After you processed your form you can redirect to the value of this path.-->
+            <input type="hidden" name="next" value="{{ request.path }}">
+
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close">&times;</span>
+            <div class="sign-in">
+               <span>Reset Password</span>
+            </div>
+            <div class="top-background">
+                <img src="{% static "images/base/if_profle_1055000.png" %}">
+            </div>
+            
+            <fieldset>
+                <section>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <i class="fas fa-user"></i>
+                </section>
+            </fieldset>
+            <input  type="submit" value="Send">   
+            <section  class="createAcc">
+               <span style="color: white">Already a member?</span>
+                <a href="#" onclick="document.getElementById('reset-pass').style.display='none',
+                                      document.getElementById('sign-in').style.display='block'" 
+                            style=" font-size: 13px; color: #00BCB8;">
+                    Cancel
+                </a>
+            </section>         
+        </form>
+
     </div>
 
    
