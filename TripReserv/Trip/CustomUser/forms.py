@@ -87,7 +87,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('email','full_name',)#add all required fields to create an admin , note:you dont have to put the password
 
     def __init__(self, *args, **kwargs):
         super(UserChangeForm, self).__init__(*args, **kwargs)
