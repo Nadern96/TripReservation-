@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('TripPackages.urls')),
     path('designYourTrip/', include('designTrip.urls')),
+    path('user/', include('CustomUser.urls')),
 
 ]

@@ -32,6 +32,10 @@ def base_view (request):
     }
     return render(request, 'TripPackages/base.html', context)
 
+def city_view (request,city):
+    places = places.objects.all()
+    places = places.filter(city=city)
+
 
 def login_user(request):
 
@@ -44,9 +48,7 @@ def login_user(request):
                 login(request, user)
                 return redirect('Home_view')
 
-
     return redirect('Home_view')
-
 
 def logout_user(request):
     logout(request)
@@ -120,7 +122,6 @@ def signUp(request):
     return redirect(redirect_path,{'messages':messages})    
 
 
-
 def activate_user_account(request, uidb64=None, token=None):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -141,7 +142,6 @@ def activate_user_account(request, uidb64=None, token=None):
 
 
 # password_reset: Form where the user submits the email address
-
 def password_reset(request):
     if request.method == "POST":
         email = request.POST.get('email')

@@ -291,9 +291,6 @@ function change_filter(button) {
 
 }
 
-
-
-
 /* ---------------------------------------------------------------
                         Tab change
  -----------------------------------------------------------------*/
@@ -318,10 +315,6 @@ function showTab(n) {
       if(document.getElementById('signup_div').style.display === 'inline'){
         document.getElementById("next").style.display = "inline";
         document.getElementById("next").innerHTML = "Sign Up and Send Request";
-      }
-      else if(document.getElementById('signin_div').style.display === 'inline'){
-        document.getElementById("next").style.display = "inline";
-        document.getElementById("next").innerHTML = "Send Request";
       }
       else{
         document.getElementById("next").style.display = "none";
@@ -363,29 +356,7 @@ function nextPrev(n) {
     // put it in the  valid function when complete
     if(currentTab===3 && n===1 && isValid()){
         document.getElementsByClassName("step")[currentTab].className += " finish";
-        if(document.getElementById('next').innerHTML === "Sign In")
-        {
-            var email =document.getElementById('email_input').value;
-            var password = document.getElementById('password_input_signin').value;
-                $.ajax({
-                type: "POST",
-                url: 'ajax_signIn/',
-                data:{email,password},
-                success: function (auth) {
-                    if(auth==="yes"){
-                        authenticated = true;
-                        document.getElementById('password_succes_signin').style.display = "inline"
-                        document.getElementById('next').innerHTML = "Send Request";
-                    }   
-                    else{
-                        authenticated = false;
-                        document.getElementById('password_error_signin').style.display = "inline";
-                        document.getElementById('password_error_signin').innerHTML = "Error!!: Invalid Password"; 
-                    }      
-                }
-            });
-        }
-        else if(authenticated){
+        if(document.getElementById('next').innerHTML === "Send Request"){
             submitting = true;
             document.getElementsByClassName("step")[currentTab].className += " finish";
             document.getElementById('trip_type').value = trip_type;
@@ -402,9 +373,7 @@ function nextPrev(n) {
             document.getElementById('country_complete').value = $('#address-country').find(":selected").text();
             $("input[name=csrfmiddlewaretoken]").val(getCookie('csrftoken'));   
             document.forms['design_form'].submit();
-        }
-
-       
+        } 
     }
     else if(currentTab===2 && n===1 && authenticated && isValid()){
         submitting = true;
@@ -430,10 +399,6 @@ function nextPrev(n) {
   
 }
 
-
-
-    
-
 function fixStepIndicator(n) {
   // This function removes the "active" class of all steps...
   var i, x = document.getElementsByClassName("step");
@@ -445,18 +410,17 @@ function fixStepIndicator(n) {
 }
 
 function step_button(n) {
-     // This function will figure out which tab to display
-  var x = document.getElementsByClassName("tab");
-if(n<currentTab){
-    x[currentTab].style.display = "none";
-    currentTab = n;
-    showTab(n);
-}
-    
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("tab");
+    if(n<currentTab){
+        x[currentTab].style.display = "none";
+        currentTab = n;
+        showTab(n);
+    }  
 }
 
 	$('.number').each(function () {
-	  $(this).number();
+	    $(this).number();
 	});
 
 // function to get month for the next year in array to be in the drop list
@@ -665,11 +629,9 @@ $( document ).ready(function() {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('password_view_signup').style.display = 'none';
     document.getElementById('password_view_signup2').style.display = 'none';
-    document.getElementById('password_view_signin').style.display = 'none';
     document.getElementById('email_input').value = "";
     document.getElementById('address-country').value = "";
     document.getElementById('email_input').value = "";
-    document.getElementById('password_input_signin').value ="";
 
     $.ajax({
         type: "POST",
@@ -707,8 +669,14 @@ $( document ).ready(function() {
  }
 
  function budget_error(){
-    var budget = document.getElementById('budget');
-    if(budget.value > "0")
+    var budget_from = parseInt(document.getElementById('budget_from').value); 
+    var budget_to = parseInt(document.getElementById('budget_to').value);
+    if(budget_from > budget_to){
+        document.getElementById('budget_to').value = budget_from;
+        document.getElementById('budget_to').min = budget_from;
+    }
+    var budget_to = parseInt(document.getElementById('budget_to').value);
+    if(budget_to > 0)
         document.getElementById('budget_error').style.display = 'none';
         document.getElementById('budget_error_mobile').style.display = 'none';
  }
@@ -767,7 +735,6 @@ function Tab3_language(){
     document.getElementById('language_question_error_mobile').style.display = 'none';
 }
 function Tab3_agenttime(){
-    
     document.getElementById('guide_time_question_error').style.display = 'none';
     document.getElementById('guide_time_question_error_mobile').style.display = 'none';
 }
@@ -851,11 +818,8 @@ function Tab4_birthday(birthday){
         document.getElementById('birthDay_question_error').style.display = 'none';
 }
 
-function Tab4_password_signin(password){
 
-    if(password.value!=="")
-        document.getElementById('password_error_signin').style.display = 'none';
-}
+
 
 /* ---------------------------------------------------------------
                         Validation Function
@@ -869,7 +833,8 @@ function isValid(){
     if(currentTab == 0){
         var checkbox1 = document.getElementById('highlights');
         var checkbox2 = document.getElementById('off_the_beaten_track');
-        var budget = document.getElementById('budget')
+        var budget_from = parseInt(document.getElementById('budget_from').value); 
+        var budget_to = parseInt(document.getElementById('budget_to').value);
         // trip type question
         if(trip_type == ""){
             
@@ -914,8 +879,8 @@ function isValid(){
             }
             valid = false;
         }
-        //bufget question
-        if(budget.value === "0"){
+        //budget question
+        if(budget_to === 0){
             if(ScreenWidth>767)
             {
                 document.getElementById('budget_error').style.display = 'inline';
@@ -1154,7 +1119,8 @@ function isValid(){
         // third to check for the guide time
         var from9to5 = document.getElementById('from9to5').checked;
         var from5to12 = document.getElementById('from5to12').checked;
-        if(!from9to5 && !from5to12)
+        var full_day = document.getElementById('full_day').checked;
+        if(!from9to5 && !from5to12 && !full_day)
         {
             if(ScreenWidth>767)
             {
@@ -1435,26 +1401,9 @@ function isValid(){
                 valid = false;
             }  
         }
-        else if(document.getElementById('signin_div').style.display==="inline"){
-            // password question
-            var password_input_signin = document.getElementById('password_input_signin');
-            if(password_input_signin.value==="")
-            {
-                document.getElementById('password_error_signin').style.display = 'inline';   
-                //for scrooling to show error
-                if(valid){
-                    var navOffset = 100;
-                    var div_postion = $("#password_div_signin").offset().top - navOffset;
-                    $('html, body').animate({
-                        scrollTop: div_postion
-                    }, 1000); // 1000 for scroll speed
-                }
-                valid = false;
-            }
-        }
         return valid;
     }
-
+    return valid;
  }
 
 
@@ -1567,20 +1516,9 @@ input.addEventListener('keyup', reset);
   
 /// fucntion to toggle password 
 function toggle_password(img){
-    var password_signin = document.getElementById('password_input_signin');
     var password_signup = document.getElementById('password_input_signup');
     var password_signup2 = document.getElementById('password_input_signup2');
-    if(img.id==="password_view_signin"){
-        password_signin.type = "password";
-        document.getElementById('password_view_signin').style.display = 'none';
-        document.getElementById('password_hide_signin').style.display = 'inline';
-    }
-    else if(img.id==="password_hide_signin"){
-        password_signin.type = "text";
-        document.getElementById('password_view_signin').style.display = 'inline';
-        document.getElementById('password_hide_signin').style.display = 'none';
-    }
-    else if(img.id==="password_view_signup"){
+    if(img.id==="password_view_signup"){
         password_signup.type = "password";
         document.getElementById('password_view_signup').style.display = 'none';
         document.getElementById('password_hide_signup').style.display = 'inline';
@@ -1643,7 +1581,6 @@ function checkEmail(){
 
 /// function on change email
 function hide_divs(){
-    document.getElementById('signin_div').style.display = "none";
     document.getElementById('signup_div').style.display = "none";
     document.getElementById('email_checked').style.display = 'none';
     document.getElementById('checkButton_div').style.display = 'inline';
@@ -1652,7 +1589,6 @@ function hide_divs(){
 
     //elemets reset
     document.getElementById('email_info').innerHTML = "";
-    document.getElementById('password_input_signin').value = "";
     document.getElementById('password_input_signup').value = "";
     document.getElementById('password_input_signup2').value = "";
     document.getElementById('ms').checked = false;
@@ -1680,17 +1616,15 @@ function password_IsStrong(password){
 function showSubTab(email_info){
 
     if(email_info ==="There is already an AmieGoo account set up with this email address"){
-        document.getElementById('signin_div').style.display = "inline";
         document.getElementById('signup_div').style.display = "none";
         document.getElementById('next').style.display = 'inline';
-        document.getElementById('next').innerHTML = 'Sign In';
+        document.getElementById('next').innerHTML = 'Send Request';
         document.getElementById('checkButton_div').style.display = 'none';
         document.getElementById('loading').style.display = "none";
         document.getElementById('email_checked').style.display = 'inline';
     }
     else if(email_info ==="No account with this email found please Create an account")
     {
-        document.getElementById('signin_div').style.display = "none";
         document.getElementById('signup_div').style.display = "inline";
         document.getElementById('next').style.display = 'inline';
         document.getElementById('next').innerHTML = 'Sign Up and Send Request';
@@ -1698,6 +1632,13 @@ function showSubTab(email_info){
         document.getElementById('loading').style.display = "none";
         document.getElementById('email_checked').style.display = 'inline';
         document.getElementById('birthday').disabled = false;
+    }
+    else if(email_info==="There is already an AmieGoo account set up with this email address But It Is Not Active Please Check Your Mail For Confirmation So You Can Make A Trip Request"){
+        document.getElementById('signup_div').style.display = "none";
+        document.getElementById('next').style.display = 'none';
+        document.getElementById('checkButton_div').style.display = 'none';
+        document.getElementById('loading').style.display = "none";
+        document.getElementById('email_checked').style.display = 'inline';
     }
 }
 

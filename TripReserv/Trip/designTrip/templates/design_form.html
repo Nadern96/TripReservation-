@@ -31,7 +31,7 @@
 						</div>
                     <br>
                     <br>
-                    <h3 id="tabheader">This Form Will Help Your Local Agent to Create Your Program Based on Your Needs</h3>
+                    <h3 id="tabheader">This Form Will Help Your Local Guide to Create Your Program Based on Your Needs</h3>
                     
                     <form id="design_form" method="post" enctype="multipart/form-data" action={% url 'design_form_get' %}>
                     {% csrf_token %}
@@ -39,7 +39,7 @@
                     <div class="tab">
                     <br>
                         <div id="TripType">
-                        <h4 class="Questions">I would like my trip to include...<span class="several_choices">(several choices possible)</span><span class="error_message" id="trip_type_error">Error!!: You forgot to answer this question</span></h4>
+                        <h4 class="Questions">I would like my trip to include...<span class="several_choices">(several choices possible)</span><span class="error_message" id="trip_type_error">Opps!!: You forgot to answer this question</span></h4>
                             <div class="form-row">
                                <div class="btn-group"  id="desktop_btn_group"role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-outline-info type_btn" onclick="change_filter(this);" id="relaxation"><img src="{% static 'design_form/images/relaxation.png' %}" ><span>Relaxation</span></button>
@@ -55,7 +55,7 @@
                                 <button type="button" class="btn btn-outline-info type_btn mobile" onclick="change_filter(this);" id="cuisine_mobile"><img src="{% static 'design_form/images/local_cuisine_mobile.png' %}" ><span>Local Cuisine</span></button>
                             </div>
                             
-                            <span class="error_message_mobile" id="trip_type_error_mobile">Error!!: you forgot to answer this question</span>
+                            <span class="error_message_mobile" id="trip_type_error_mobile">Opps!!: you forgot to answer this question</span>
 
 
                     </div>
@@ -72,7 +72,7 @@
 
                         <div id="about_trip_question">
                             <br>
-                        <h4 class="Questions">I would like my trip to include...<span class="several_choices">(several choices possible)</span><span class="error_message" id="about_trip_question_error">Error!!: you forgot to answer this question</span></h4>
+                        <h4 class="Questions">I would like my trip to include...<span class="several_choices">(several choices possible)</span><span class="error_message" id="about_trip_question_error">Opps!!: you forgot to answer this question</span></h4>
                         <div class="form-row">
                            <div class="col-md-4">
                                <label class="radio-container m-r-45">Highlights
@@ -85,24 +85,38 @@
                                </label>
                            </div>
                         </div>
-                        <span class="error_message_mobile" id="about_trip_question_error_mobile">Error!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id="about_trip_question_error_mobile">Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="budget_question" onclick="budget_error();">
                         <br>
-                        <h4 class="Questions">Your Average Budget per person($)<span class="error_message" id="budget_error">Error!!:you forgot to answer this question</span></h4>
+                        <h4 class="Questions">Your Average Budget per person($)<span class="error_message" id="budget_error">Opps!!:you forgot to answer this question</span></h4>
                         <div class="form-row">
-                               <input class="number" onchange="budget_error();" type="number" value="0" step="100" max="10000" min="0" id="budget" name="budget">
+                            <div class="col-md">
+                                <div>
+                                    <label for="budget_from" class='form_label'>From</label>
+                                    <input class="number" type="number" value="0" step="50" max="10000" min="0" id="budget_from" name="budget_from">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md">
+                                <div>
+                                    <label for="budget_from" class='form_label'>To</label>
+                                    <input class="number" type="number" value="0" step="50" max="10000" min="0" id="budget_to" name="budget_to">
+                                </div>
+                            </div>
+                            <span class="error_message_mobile" id='budget_error_mobile'>Opps!!: you forgot to answer this question</span>
                         </div>
-                        <span class="error_message_mobile" id='budget_error_mobile'>Error!!: you forgot to answer this question</span>
                     </div>
+
+
                 </div>
 
                     <!-- second tab -->
                 <div class="tab">
                     <br>
                     <div id="people_question">
-                        <h4 class="Questions">You will be traveling...<span class="error_message" id="people_question_error">Error!!: you forgot to answer this question</span></h4>
+                        <h4 class="Questions">You will be traveling...<span class="error_message" id="people_question_error">Opps!!: you forgot to answer this question</span></h4>
                         <div class="form-row">
                            <div class="col-2">
                                <label class="radio-container m-r-45">Solo
@@ -123,12 +137,12 @@
                                </label>
                            </div>
                         </div>
-                        <span class="error_message_mobile" id="people_question_error_mobile">Error!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id="people_question_error_mobile">Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="couple_question" class="variable_question">
                         <br>
-                        <h4 class="Questions">What's the reason for your trip?<span class="error_message" id='couple_question_error'>Error!!:you forgot to answer this question</span></h4>
+                        <h4 class="Questions">What's the reason for your trip?<span class="error_message" id='couple_question_error'>Opps!!:you forgot to answer this question</span></h4>
                         <div class="form-row">
                            <div class="col-3">
                                <label class="radio-container">Just for vacation
@@ -145,7 +159,7 @@
                                </label>
                            </div>
                         </div>
-                        <span class="error_message_mobile" id='couple_question_error_mobile'>Error!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id='couple_question_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="number_people" onclick="Tab2_number_question();" class="variable_question">
@@ -162,14 +176,14 @@
                                <input class="number" type="number" value="0" step="1" max="10" min="0" id="number_children" name="chidren_number">
                            </div>
                         </div>
-                        <span class="error_message" id='number_people_error'>Error!!: you forgot to answer this question</span>
-                        <span class="error_message_mobile" id='number_people_error_mobile'>Error!!: you forgot to answer this question</span>
+                        <span class="error_message" id='number_people_error'>Opps!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id='number_people_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
 
 
                     <div id="exactTime_question">
                         <br>
-                        <h4 class="Questions">Do you know the exact dates of your trip?<span class="error_message" id='exactTime_question_error'>Error!!: you forgot to answer this question</span></h4>
+                        <h4 class="Questions">Do you know the exact dates of your trip?<span class="error_message" id='exactTime_question_error'>Opps!!: you forgot to answer this question</span></h4>
                         <div class="form-row">
                            <div class="col-2">
                                <label class="radio-container m-r-45">Yes
@@ -182,12 +196,12 @@
                                </label>
                            </div>
                         </div>
-                        <span class="error_message_mobile" id='exactTime_question_error_mobile'>Error!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id='exactTime_question_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="notSure_date" class="variable_question2">
                         <br>
-                        <h4 class="Questions">Do you have a rough idea?<span class="error_message" id='notSure_date_error'>Error!!:you forgot to answer this question</span></h4>
+                        <h4 class="Questions">Do you have a rough idea?<span class="error_message" id='notSure_date_error'>Opps!!:you forgot to answer this question</span></h4>
                         <div class="form-row">
                             <div class="col-md-3">
                             <label for="month" class='form_label'>Month(approx)</label>
@@ -218,7 +232,7 @@
                                 </select>
                             </div>
                         </div>
-                        <span class="error_message_mobile" id='notSure_date_error_mobile'>Error!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id='notSure_date_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="exact_dates" class="variable_question2">
@@ -244,8 +258,8 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="error_message" id='exact_dates_error'>Error!!: you forgot to answer this question</span>
-                        <span class="error_message_mobile" id='exact_dates_error_mobile'>Error!!: you forgot to answer this question</span>
+                        <span class="error_message" id='exact_dates_error'>Opps!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id='exact_dates_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
                 </div>
 
@@ -254,7 +268,7 @@
                 <br>    
                 <div id="whereTobeginTrip_question">
                             <br>
-                        <h4 class="Questions">I want My Trip To Begin From<span class="error_message" id='whereTobeginTrip_question_error'>Error!!: you forgot to answer this question</span></h4>
+                        <h4 class="Questions">I want My Trip To Begin From<span class="error_message" id='whereTobeginTrip_question_error'>Opps!!: you forgot to answer this question</span></h4>
                         <div class="form-row">
                            <div class="col-3" id='wheretobegin_div'>
                                <label class="radio-container m-r-45 whereToBegin" id="cairo_tab3">Cairo
@@ -287,12 +301,12 @@
                                </label>
                            </div>
                         </div>
-                         <span class="error_message_mobile" id='whereTobeginTrip_question_error_mobile'>Error!!: you forgot to answer this question</span>
+                         <span class="error_message_mobile" id='whereTobeginTrip_question_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="language_question">
                             <br>
-                        <h4 class="Questions">I Want My Agent To Speak<span class="error_message" id='language_question_error'>Error!!: you forgot to answer this question</span></h4>
+                        <h4 class="Questions">I Want My Guide To Speak<span class="error_message" id='language_question_error'>Opps!!: you forgot to answer this question</span></h4>
                         <div class="form-row">
                            <div class="col-2">
                                <label class="radio-container m-r-45">English
@@ -305,12 +319,12 @@
                                </label>
                            </div>
                         </div>
-                         <span class="error_message_mobile" id='language_question_error_mobile'>Error!!: you forgot to answer this question</span>
+                         <span class="error_message_mobile" id='language_question_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="guide_time_question">
                         <br>
-                        <h4 class="Questions">I Need My agent From<span class="error_message" id='guide_time_question_error'>Error!!: you forgot to answer this question</span></h4>
+                        <h4 class="Questions">I Need My Guide From<span class="error_message" id='guide_time_question_error'>Opps!!: you forgot to answer this question</span></h4>
                         <div class="form-row">
                            <div class="col-3" id='guide_time_div'>
                                <label class="radio-container m-r-45">From 9am-5pm
@@ -321,14 +335,18 @@
                                    <input type="radio" onclick='Tab3_agenttime();' name="guide_time" id="from5to12" value="from5to12">
                                    <span class="checkmark"></span>
                                </label>
+                               <label class="radio-container">Full Day
+                                   <input type="radio" onclick='Tab3_agenttime();' name="guide_time" id="full_day" value="full day">
+                                   <span class="checkmark"></span>
+                               </label>
                            </div>
                         </div>
-                        <span class="error_message_mobile" id='guide_time_question_error_mobile'>Error!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id='guide_time_question_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="welcome_question">
                         <br>
-                        <h4 class="Questions">Do you need your agent to welcome you at airport ?<span class="error_message" id='welcome_question_error'>Error!!: you forgot to answer this question</span></h4>
+                        <h4 class="Questions">Do you need your Guide to welcome you at airport ?<span class="error_message" id='welcome_question_error'>Opps!!: you forgot to answer this question</span></h4>
                         <div class="form-row">
                            <div class="col-2">
                                <label class="radio-container m-r-45">Yes
@@ -341,12 +359,12 @@
                                </label>
                            </div>
                         </div>
-                        <span class="error_message_mobile" id='welcome_question_error_mobile'>Error!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id='welcome_question_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="byebye_question">
                         <br>
-                        <h4 class="Questions">Do you need your agent to bye bye you at airport ?<span class="error_message" id='byebye_question_error'>Error!!: you forgot to answer this question</span></h4>
+                        <h4 class="Questions">Do you need your Guide to bye bye you at airport ?<span class="error_message" id='byebye_question_error'>Opps!!: you forgot to answer this question</span></h4>
                         <div class="form-row">
                            <div class="col-2">
                                <label class="radio-container m-r-45">Yes
@@ -359,12 +377,12 @@
                                </label>
                            </div>
                         </div>
-                        <span class="error_message_mobile" id='byebye_question_error_mobile'>Error!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id='byebye_question_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="car_question">
                         <br>
-                        <h4 class="Questions">Do you need your agent to have a car ?<span class="error_message" id='car_question_error'>Error!!: you forgot to answer this question</span></h4>
+                        <h4 class="Questions">Do you need your Guide to have a car ?<span class="error_message" id='car_question_error'>Opps!!: you forgot to answer this question</span></h4>
                         <div class="form-row">
                            <div class="col-2">
                                <label class="radio-container m-r-45">Yes
@@ -377,12 +395,12 @@
                                </label>
                            </div>
                         </div>
-                        <span class="error_message_mobile" id='car_question_error_mobile'>Error!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id='car_question_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="camera_question">
                         <br>
-                        <h4 class="Questions">Do you need your agent to have a camera ?<span class="error_message" id='camera_question_error'>Error!!: you forgot to answer this question</span></h4>
+                        <h4 class="Questions">Do you need your Guide to have a camera ?<span class="error_message" id='camera_question_error'>Opps!!: you forgot to answer this question</span></h4>
                         <div class="form-row">
                            <div class="col-2">
                                <label class="radio-container m-r-45">Yes
@@ -395,7 +413,7 @@
                                </label>
                            </div>
                         </div>
-                        <span class="error_message_mobile" id='camera_question_error_mobile'>Error!!: you forgot to answer this question</span>
+                        <span class="error_message_mobile" id='camera_question_error_mobile'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="additional_info">
@@ -426,26 +444,9 @@
                             </div>
                         </div>
                         <span id='email_info' class="password_info"></span>
-                        <span id="invalid_email" class="form_error">Error!!: Enter a Valid Email</span>
-                        <span class="form_error" id='Email_error'>Error!!: you forgot to answer this question</span>
+                        <span id="invalid_email" class="form_error">Opps!!: Enter a Valid Email</span>
+                        <span class="form_error" id='Email_error'>Opps!!: you forgot to answer this question</span>
                     </div>
-
-                    <div id='signin_div' style="display:none">
-                        <div id='password_div_signin' class='form-group'>
-                            <br>
-                            <label for="password" class='form_label'>Enter your password</label>
-                            <div class="w_75 input-group mb-1">
-                                <input type="password" id='password_input_signin' onchange="Tab4_password_signin(this);" name='password_signin' class="form-control" placeholder="password">
-                                <img src="{% static 'design_form/images/view22.png'%}" onclick='toggle_password(this);' id='password_view_signin' class="input_img">
-                                <img src="{% static 'design_form/images/hide22.png'%}" onclick='toggle_password(this);' id='password_hide_signin' class="input_img">
-                            </div>
-                            <span class="form_error" id='password_error_signin'>Error!!: Please Enter Your Password</span>
-                            <span class="password_succes" id='password_succes_signin'>successfully Signed In</span>
-                        </div>
-                        <br>
-            
-                    </div>
-
 
                     <div id='signup_div' style="display:none">
 
@@ -457,8 +458,8 @@
                             <img src="{% static 'design_form/images/view22.png'%}" onclick='toggle_password(this);' id='password_view_signup' class="input_img">
                             <img src="{% static 'design_form/images/hide22.png'%}" onclick='toggle_password(this);' id='password_hide_signup' class="input_img">
                         </div>
-                        <span class="form_error" id='password_notStrong'>Error!!: Your password is not strong enough</span>
-                        <span class="form_error" id='password_error'>Error!!: you forgot to answer this question</span>
+                        <span class="form_error" id='password_notStrong'>Opps!!: Your password is not strong enough</span>
+                        <span class="form_error" id='password_error'>Opps!!: you forgot to answer this question</span>
                     </div>
                     <div id='password_div_signup2' class='form-group'>
                     <br>
@@ -475,8 +476,8 @@
                                 <li>1 letter</li>
                            </ul> 
                         </span>
-                        <span class="form_error" id='password_notStrong2'>Error!!: Your Entered Password do not match</span>
-                        <span class="form_error" id='password_error2'>Error!!: you forgot to answer this question</span>
+                        <span class="form_error" id='password_notStrong2'>Opps!!: Your Entered Password do not match</span>
+                        <span class="form_error" id='password_error2'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id="title_question">
@@ -494,7 +495,7 @@
                                </label>
                            </div>
                         </div>
-                         <span class="form_error" id='title_question_error'>Error!!: you forgot to answer this question</span>
+                         <span class="form_error" id='title_question_error'>Opps!!: you forgot to answer this question</span>
                     </div>
 
                     <div id='name_question'> 
@@ -505,14 +506,14 @@
                                     <label for="first_name" class='form_label'>First Name</label>
                                     <input type="text" class="form-control" onchange='Tab4_first_name(this);' id="first_name" name='first_name' placeholder="first name">
                                 </div>
-                                <span class="form_error" id='first_name_error'>Error!!: you forgot to answer this question</span>
+                                <span class="form_error" id='first_name_error'>Opps!!: you forgot to answer this question</span>
                             </div>
                             <div class="form-group col-md-6">
                                 <div class='mb-1'>
                                     <label for="last_name" class='form_label'>Last Name</label>
                                     <input type="text" class="form-control" onchange='Tab4_last_name(this);' id="last_name" name='last_name' placeholder="last name">
                                 </div>
-                                <span class="form_error" id='last_name_error'>Error!!: you forgot to answer this question</span>
+                                <span class="form_error" id='last_name_error'>Opps!!: you forgot to answer this question</span>
                             </div>
                         </div>
                     </div>
@@ -525,7 +526,7 @@
                                     <label for="first_name" class='form_label'>Country</label>
                                     <select id="address-country" onchange='Tab4_country(this);' class='form-control' name='country' placeholder="country"></select>
                                 </div>
-                                <span class="form_error" id='country_question_error'>Error!!: You forgot to answer this question</span>
+                                <span class="form_error" id='country_question_error'>Opps!!: You forgot to answer this question</span>
                             </div>
                             <div class="form-group col-md-6">
                                 <div class=''>
@@ -534,7 +535,7 @@
                                 <input id="phone" type="tel" onchange='Tab4_phone(this);' class='form-control' name='mobile'>
                                 <span id="valid-msg" class="form_error"><img src="{% static 'design_form/images/correct18.png'%}">Valid</span>
                                 <span id="error-msg" class="form_error"></span>
-                                <span class="form_error" id='mobile_error'>Error!!: You forgot to answer this question</span>
+                                <span class="form_error" id='mobile_error'>Opps!!: You forgot to answer this question</span>
                             </div>
                         </div>
                     </div>
@@ -552,7 +553,7 @@
                                 </div>
                                 <input id="birthday" name="birthday" onchange='Tab4_birthday(this);' class="form-control" type="date"/>
                             </div>
-                            <span class="form_error" id='birthDay_question_error'>Error!!: You forgot to answer this question</span>
+                            <span class="form_error" id='birthDay_question_error'>Opps!!: You forgot to answer this question</span>
                         </div>
                     </div>
                         

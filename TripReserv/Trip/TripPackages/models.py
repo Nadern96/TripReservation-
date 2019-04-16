@@ -20,14 +20,19 @@ class Place (models.Model):
     name= models.CharField(max_length=250, default="")
     about_place = models.TextField(default=" ")
     historical= 'historical'
-    local_culture = 'local_culture'
-    local_cusine = 'local_cusine'
+    local_culture = 'local culture'
+    local_cusine = 'local cusine'
     relaxation = 'relaxation'
-    category = (
+    category_choices = (
         (historical, 'historical'),
-        (local_culture, 'local_culture'),
-        (local_cusine, 'local_cusine'),
-        (relaxation, 'Senrelaxationior'),
+        (local_culture, 'local culture'),
+        (local_cusine, 'local cusine'),
+        (relaxation, 'relaxation'),
+    )
+    category = models.CharField(
+        max_length=50,
+        choices=category_choices,
+        default=historical,
     )
     city = models.ForeignKey(City, on_delete=models.CASCADE)
 
