@@ -29,3 +29,6 @@ function go_SignUp(){
     sign_in.style.display = "none";
     console.log("hello");
 }
+
+/************ To make alert message disappear after ***********/
+setTimeout(function(){$('.alert').fadeOut();}, 15000);

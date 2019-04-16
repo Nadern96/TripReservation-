@@ -5,7 +5,8 @@ def DesignTrip_formSave(request,user,signUpFlag):
     design_form = DesignTrip()
     design_form.trip_type = request.POST.get('trip_type','')
     design_form.about_trip = request.POST.get('about_trip','')
-    design_form.budget = request.POST.get('budget',0)
+    design_form.budget_from = request.POST.get('budget_from',0)
+    design_form.budget_to = request.POST.get('budget_to',design_form.budget_from)
     design_form.travel_with = request.POST.get('people_question','')
     design_form.couple_question = request.POST.get('couple_question','')
     design_form.adult_number = request.POST.get('adult_number',1)
@@ -23,6 +24,7 @@ def DesignTrip_formSave(request,user,signUpFlag):
     design_form.agent_car = request.POST.get('car_question','')
     design_form.agent_camera = request.POST.get('camera_question','')
     design_form.additional_info = request.POST.get('additional_info','')
+    design_form.status = "Requested"
     if signUpFlag:
         design_form.user = user
     else:

@@ -151,3 +151,15 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'danger',
 }
+
+#Send Grid Settings to send emails
+SEND_GRID_API_KEY ='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'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'NaderNabil'
+EMAIL_HOST_PASSWORD = '4433107jsw'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'nadernabilmansour@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+

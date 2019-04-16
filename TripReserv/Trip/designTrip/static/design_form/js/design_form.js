@@ -291,9 +291,6 @@ function change_filter(button) {
 
 }
 
-
-
-
 /* ---------------------------------------------------------------
                         Tab change
  -----------------------------------------------------------------*/
@@ -376,9 +373,7 @@ function nextPrev(n) {
             document.getElementById('country_complete').value = $('#address-country').find(":selected").text();
             $("input[name=csrfmiddlewaretoken]").val(getCookie('csrftoken'));   
             document.forms['design_form'].submit();
-        }
-
-       
+        } 
     }
     else if(currentTab===2 && n===1 && authenticated && isValid()){
         submitting = true;
@@ -404,10 +399,6 @@ function nextPrev(n) {
   
 }
 
-
-
-    
-
 function fixStepIndicator(n) {
   // This function removes the "active" class of all steps...
   var i, x = document.getElementsByClassName("step");
@@ -419,18 +410,17 @@ function fixStepIndicator(n) {
 }
 
 function step_button(n) {
-     // This function will figure out which tab to display
-  var x = document.getElementsByClassName("tab");
-if(n<currentTab){
-    x[currentTab].style.display = "none";
-    currentTab = n;
-    showTab(n);
-}
-    
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("tab");
+    if(n<currentTab){
+        x[currentTab].style.display = "none";
+        currentTab = n;
+        showTab(n);
+    }  
 }
 
 	$('.number').each(function () {
-	  $(this).number();
+	    $(this).number();
 	});
 
 // function to get month for the next year in array to be in the drop list
@@ -679,8 +669,14 @@ $( document ).ready(function() {
  }
 
  function budget_error(){
-    var budget = document.getElementById('budget');
-    if(budget.value > "0")
+    var budget_from = parseInt(document.getElementById('budget_from').value); 
+    var budget_to = parseInt(document.getElementById('budget_to').value);
+    if(budget_from > budget_to){
+        document.getElementById('budget_to').value = budget_from;
+        document.getElementById('budget_to').min = budget_from;
+    }
+    var budget_to = parseInt(document.getElementById('budget_to').value);
+    if(budget_to > 0)
         document.getElementById('budget_error').style.display = 'none';
         document.getElementById('budget_error_mobile').style.display = 'none';
  }
@@ -739,7 +735,6 @@ function Tab3_language(){
     document.getElementById('language_question_error_mobile').style.display = 'none';
 }
 function Tab3_agenttime(){
-    
     document.getElementById('guide_time_question_error').style.display = 'none';
     document.getElementById('guide_time_question_error_mobile').style.display = 'none';
 }
@@ -835,10 +830,11 @@ function isValid(){
     var ScreenWidth = window.innerWidth
                 || document.documentElement.clientWidth
                 || document.body.clientWidth; // the or for all clients 
-    /*if(currentTab == 0){
+    if(currentTab == 0){
         var checkbox1 = document.getElementById('highlights');
         var checkbox2 = document.getElementById('off_the_beaten_track');
-        var budget = document.getElementById('budget')
+        var budget_from = parseInt(document.getElementById('budget_from').value); 
+        var budget_to = parseInt(document.getElementById('budget_to').value);
         // trip type question
         if(trip_type == ""){
             
@@ -883,8 +879,8 @@ function isValid(){
             }
             valid = false;
         }
-        //bufget question
-        if(budget.value === "0"){
+        //budget question
+        if(budget_to === 0){
             if(ScreenWidth>767)
             {
                 document.getElementById('budget_error').style.display = 'inline';
@@ -1123,7 +1119,8 @@ function isValid(){
         // third to check for the guide time
         var from9to5 = document.getElementById('from9to5').checked;
         var from5to12 = document.getElementById('from5to12').checked;
-        if(!from9to5 && !from5to12)
+        var full_day = document.getElementById('full_day').checked;
+        if(!from9to5 && !from5to12 && !full_day)
         {
             if(ScreenWidth>767)
             {
@@ -1405,7 +1402,7 @@ function isValid(){
             }  
         }
         return valid;
-    }*/
+    }
     return valid;
  }
 

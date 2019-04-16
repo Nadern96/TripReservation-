@@ -7,5 +7,5 @@ urlpatterns = [
     path('check_email/',views.checkEmail,name='check_email'),
     path('ajax_check_auth/',views.check_auth,name="check_auth"),
     path('design_form_get/',views.design_form_get,name="design_form_get"),
-    path('test/',views.form_complete,name="form_complete"),
+    path('form_complete/',views.form_complete,name="form_complete"),
 ]
