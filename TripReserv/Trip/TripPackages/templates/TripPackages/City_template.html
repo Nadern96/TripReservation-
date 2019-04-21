@@ -27,7 +27,7 @@
                 <div class="row card">
                     <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#collapseOne">
-                            <i class="fas fa-plus"></i> 
+                            <i class="fas fa-minus"></i> 
                                 Historical 
                         </a>
                     </div>
@@ -109,7 +109,29 @@
                     </div>
                     <div id="collapseThree" class="collapse" data-parent="#accordion">
                         <div class="card-body">
-                          
+                            {% if places %}
+                                {% for place in places %}
+                                    {% if place.category == 'local cusine' %}
+                                    
+                                    <!--            card for every place (cards inside card)               -->
+                                    <div class="row details">
+                                        <h3>{{place.name}}</h3>
+                                        <p>{{place.brief}}</p>
+
+                                        <div class="content hide">
+                                            {% comment %} <img src="{{place.image.url}}" alt="{{place.image}}"/> {% endcomment %}
+                                            <img src="{{place.image.url}}" class="img-fluid" alt="{{place.image}}">
+                                            <p>{{place.about_place}}</p>
+                                            <a href="{{place.location}}">{{place.name}} location on google maps</a>
+                                        </div>
+                                        <button type="button" class="link btn btn-primary">Show more</button>
+                                    </div>
+                                    <hr class="separator">
+                                    <!--            card for every place (cards inside card)               -->
+                                   
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -125,7 +147,29 @@
                     </div>
                     <div id="#collapsefour" class="collapse" data-parent="#accordion">
                         <div class="card-body">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            {% if places %}
+                                {% for place in places %}
+                                    {% if place.category == 'relaxation' %}
+                                    
+                                    <!--            card for every place (cards inside card)               -->
+                                    <div class="row details">
+                                        <h3>{{place.name}}</h3>
+                                        <p>{{place.brief}}</p>
+
+                                        <div class="content hide">
+                                            {% comment %} <img src="{{place.image.url}}" alt="{{place.image}}"/> {% endcomment %}
+                                            <img src="{{place.image.url}}" class="img-fluid" alt="{{place.image}}">
+                                            <p>{{place.about_place}}</p>
+                                            <a href="{{place.location}}">{{place.name}} location on google maps</a>
+                                        </div>
+                                        <button type="button" class="link btn btn-primary">Show more</button>
+                                    </div>
+                                    <hr class="separator">
+                                    <!--            card for every place (cards inside card)               -->
+                                   
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
