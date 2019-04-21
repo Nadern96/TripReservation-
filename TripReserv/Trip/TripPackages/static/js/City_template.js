@@ -13,10 +13,9 @@
                 $(this).slideUp(700);
                 var linktext = $(this).parent().find(".link").html();
                 console.log(linktext);
-                if(linktext == "Show more")
-                    $(this).parent().find(".link").html("Show less");
-                else
+                if(linktext == "Show less")
                     $(this).parent().find(".link").html("Show more");
+               
 
             }
         );
