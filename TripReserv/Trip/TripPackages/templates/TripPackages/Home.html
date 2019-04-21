@@ -51,13 +51,18 @@
         <input type="text" id="myInput" onkeyup="filter()"   placeholder="Where you Would like to go?" title="Type in a name">
         <ul id="myUL" style="display: none">
             {% for city in cities %}
-              <li  onclick = "copyToinput(this)"><a >{{ city.name }}</a></li>
+                <li  onclick = "copyToinput(this)">
+                    <a href="{% url 'city_view' city.name  %}" >
+                        {{ city.name }}
+                    </a>
+                </li>
             {% endfor %}
         </ul>
         <button type="button"  class="btn btn-lg btn-primary searchBtn">Discover</button>
 
-        <button type="button" class="btn btn-lg btn-primary notSureBtn" >Not sure yet? Try ours</button>
-
+        <a href="{% url 'design_form_render' %}">
+            <button type="button" class="btn btn-lg btn-primary notSureBtn" >Not sure yet? Try ours</button>
+        </a>       
     </div>
      <!-- Grid row -->
       <div class="row discover">

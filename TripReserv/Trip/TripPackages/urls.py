@@ -10,6 +10,7 @@ from django.conf.urls import url
 urlpatterns = [
 
     path('', views.Home_view, name = "Home_view"),
+    path('cities/<city>/', views.city_view, name='city_view'),
     path('loginUser', views.login_user , name='login_user'),
     path('logout_user', views.logout_user , name='logout_user'),
     

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 # Create your views here.
-from . models import City
+from . models import City , Place
 from django.contrib.auth import authenticate, login , logout , get_user_model
 from CustomUser.forms import RegisterForm , LoginForm , UserChangeForm
 from django.utils.http import is_safe_url
@@ -20,24 +20,21 @@ from django.core.mail import EmailMessage
 def Home_view (request):
     cities = City.objects.all()
     context = {
-        'cities': cities,
-        'user':request.user
+        'cities': cities
     }
     return render(request, 'TripPackages/Home.html', context)
 
-
-def base_view (request):
-    cities = City.objects.all()
-    context = {
-        'cities': cities,
-        'user':request.user
-    }
-    return render(request, 'TripPackages/base.html', context)
-
 def city_view (request,city):
-    places = places.objects.all()
-    places = places.filter(city=city)
-
+    places = Place.objects.all()
+    places = places.filter(city__name=city)
+    cities = City.objects.all()
+    city = cities.filter(name=city)
+    context = {
+        "places": places,
+        "cities": cities,
+        "city" : city,
+     }
+    return render(request, 'TripPackages/City_template.html',context)
 
 def login_user(request):
 
@@ -79,6 +76,8 @@ def login_page(request):
             else:
                 messages.error(request,f'invalid email or password ,try again!')
                 return redirect("/",{'messages':messages})
+                
+        
     messages.error(request,f'invalid email or password ,try again!')
     return redirect(redirect_path,{'messages':messages})  
 
@@ -137,13 +136,8 @@ def activate_user_account(request, uidb64=None, token=None):
     elif user.is_active:
         return redirect('Home_view')
     else:
-        cities = City.objects.all()
-        context = {
-        'cities': cities,
-        'user':request.user
-        }
         messages.error(request,f'Activation link is invalid!')
-        return render(request,'TripPackages/Home.html',context)
+        return render(request,'TripPackages/Home.html')
 
 
 # password_reset: Form where the user submits the email address
@@ -217,4 +211,3 @@ def password_reset_confirm (request, uidb64=None, token=None):
 
 
     
-

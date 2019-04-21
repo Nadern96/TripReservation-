@@ -1,0 +1,59 @@
+body {
+    background-color: #f7f7f7;
+}
+
+.container{
+    padding-top:85px;
+    width: 100%;
+}
+.city-img , .city-about{
+    background-color:#FFFFFF; 
+    margin-bottom:30px;
+}
+.city-about{padding: 10px;}
+.city-about h2 {
+    font-family: 'Bree Serif', serif;
+}
+.city-about p{font-family: 'Roboto', sans-serif;}
+.city-img img {
+    height: 400px;
+    width: 100%;
+}
+.places{width: 100%;}
+.sites-heading{
+    font-family: 'Bree Serif', serif;
+    width: 100%;
+    margin:15px auto 15px auto;
+}
+.card{margin-bottom: 20px;}
+.card-header .card-link{
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+    letter-spacing:1.5px;
+}
+
+.details{
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.details h3{width: 100%;}
+.details p {margin-right:20px; width: 100%;}
+.details a.link {
+    color:darkblue;
+    cursor: pointer;
+}
+.content{
+    width:100%;
+    margin:20px 0 20px 0;}
+.content img {
+    margin-bottom: 20px;
+}
+.hide{display: none;}
+
+.separator {
+    height: 3px;
+    width: 90%;
+}
+
