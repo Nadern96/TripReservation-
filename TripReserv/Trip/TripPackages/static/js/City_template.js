@@ -15,8 +15,6 @@
                 console.log(linktext);
                 if(linktext == "Show less")
                     $(this).parent().find(".link").html("Show more");
-               
-
             }
         );
     });

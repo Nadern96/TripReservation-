@@ -25,10 +25,28 @@ $(document).keyup(function(e) {
 });
 /************************************************************************/
 var sign_in = document.getElementById('sign-in');
+var sign_up = document.getElementById('sign-up'); 
+var reset_pass = document.getElementById('reset-pass'); 
 function go_SignUp(){
     sign_in.style.display = "none";
+    reset_pass.style.display= "none";
+    sign_up.style.display = "block";
     console.log("hello");
 }
-
+function go_SignIn(){
+    sign_in.style.display = "block";
+    reset_pass.style.display= "none";
+    sign_up.style.display = "none";
+    console.log("hello");
+}
+function go_resetPass(){
+    sign_in.style.display = "none";
+    reset_pass.style.display= "block";
+    sign_up.style.display = "none";
+    console.log("hello");
+}
 /************ To make alert message disappear after ***********/
 setTimeout(function(){$('.alert').fadeOut();}, 15000);
+
+
+

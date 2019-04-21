@@ -13,6 +13,9 @@
     background-color: #1D2C4F;
     position: relative;
 }
+.modal form#reset-pass{
+    min-height: 350px;
+} 
 /* The Close Button (x) */
 .close {
     position: absolute;
