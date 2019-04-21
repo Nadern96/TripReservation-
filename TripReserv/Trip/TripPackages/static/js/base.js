@@ -20,7 +20,9 @@ window.onclick = function(event) {
 $(document).keyup(function(e) {
      if (e.key === "Escape") {
          // write your logic here.
+        go_SignIn();
         modal.style.display = "none";
+
     }
 });
 /************************************************************************/
@@ -44,6 +46,36 @@ function go_resetPass(){
     reset_pass.style.display= "block";
     sign_up.style.display = "none";
     console.log("hello");
+}
+
+function validate_form (form , pass1 , pass2 , error){
+    pass1 = document.getElementById(pass1).value;
+    pass2 = document.getElementById(pass2).value;
+    var valid;
+    console.log(pass1);
+    form = document.getElementById(form);
+    if(pass1!=pass2){
+        valid = false;
+        console.log("not valid");
+        console.log(document.getElementById(error).innerHTML);
+        document.getElementById(error).innerHTML = "Passwords Don't Match";
+        return false;
+    }
+    form.submit();
+    console.log("valid");
+    
+    return true;
+
+}
+function pswderr() {
+    var pswd1 = document.getElementById("newuserpswd").value;
+    var pswd2 = document.getElementById("rptpswd").value;
+    if (pswd1 !== pswd2) {
+        document.getElementById("alarm").innerHTML = "Password and password verification do not match. Retry";
+        return false;
+    } else {document.getElementById("alarm").innerHTML = "";
+        return true;
+        }
 }
 /************ To make alert message disappear after ***********/
 setTimeout(function(){$('.alert').fadeOut();}, 15000);

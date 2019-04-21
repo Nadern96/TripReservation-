@@ -1,26 +1,37 @@
-<div class="container">
-         <br>
-            <div class="row">
-                <div class="col-xs-8">
-                    
-                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% for field in form %}
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <span class="text-danger small">{{ field.errors }}</span>
-                                </div>
-                                <label class="control-label col-sm-2" for="song_title">{{ field.label_tag }}</label>
-                                <div class="col-sm-10">{{ field }}</div>
-                            </div>
-                        {% endfor %}
+{% extends 'TripPackages/base.html' %}
+{% load staticfiles %}
+{% block body %}
+   
+    <div class="modal" style = "display:block">
+        <form method="POST" id="reset-conf" role="form" action="" enctype="multipart/form-data" >
+                {% csrf_token %}
 
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <input type="submit" value="Save" class="btn btn-success">
-                            </div>
-                        </div>
-                    </form>
+                <!--After you processed your form you can redirect to the value of this path.-->
+                <input type="hidden" name="next" value="{{ request.path }}">
+
+                <div class="sign-in">
+                <span>Reset Password</span>
                 </div>
-            </div>
+                <div class="top-background">
+                    <img src="{% static "images/base/if_profle_1055000.png" %}">
+                </div>
+                <p class="error" id="reset-error"></p>
+                <fieldset>
+                    <section>
+                        <input type="password" id="new_password1" name="new_password1" placeholder="New Password" required>
+                        <i class="fas fa-lock"></i>
+                    </section>
+
+                    <section>
+                        <input type="password"  id="new_password2" name="new_password2" placeholder="New Confirm Password" required>
+                        <i class="fas fa-lock"></i>
+                    </section>
+                </fieldset>
+                <input  type="button"  
+                        onclick="validate_form ('reset-conf','new_password1','new_password2','reset-error')"  
+                        value="Change Password">   
+                
+                        
+        </form>
     </div>
+{% endblock %}

@@ -2,7 +2,7 @@
     display: none; /* Hidden by default */
     z-index: 4; /* Sit on top */
     overflow: auto;
-    background-color: rgba(39,38,36,0.7); /* Black w/ opacity */
+    background-color: rgba(39,38,36,0.5); /* Black w/ opacity */
 }
 .modal form {
     max-width:400px;
@@ -108,7 +108,7 @@
     margin-left: 25px;
     color: #FFFFFF;
 }
-.modal form input[type=submit] {
+.modal form input[type=submit] ,.modal form input[type=button] {
     width: 80%;
     height: 40px;
     display: block;
@@ -124,6 +124,7 @@
     letter-spacing: 1px;
     cursor: pointer;
 }
+
 .modal form .createAcc {
     width: 80%;
     margin:10px auto 10px auto;
@@ -131,6 +132,12 @@
     text-align: center;
 }
 
+.modal .error {
+    position: absolute;
+    color: white;
+    top:170px;
+    left:45px;
+}
 
 @media (max-width: 560px){
     .modal fieldset  span.check-name{

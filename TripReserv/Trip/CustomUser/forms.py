@@ -22,6 +22,7 @@ class UserAdminCreationForm(forms.ModelForm):
             raise forms.ValidationError("Passwords don't match")
         return password2
 
+       
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super(UserAdminCreationForm, self).save(commit=False)
@@ -82,18 +83,26 @@ class LoginForm(forms.Form):
     email = forms.EmailField(label="Email")
     password = forms.CharField(widget=forms.PasswordInput)
 
-class UserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField()
+class SetPasswordForm(forms.Form):
+    """
+    A form that lets a user change set their password without entering the old
+    password
+    """
+    error_messages = {
+        'password_mismatch': ("The two password fields didn't match."),
+        }
+    new_password1 = forms.CharField(label=("New password"),
+                                    widget=forms.PasswordInput)
+    new_password2 = forms.CharField(label=("New password confirmation"),
+                                    widget=forms.PasswordInput)
 
-    class Meta:
-        model = User
-        fields = ('email','full_name',)#add all required fields to create an admin , note:you dont have to put the password
-
-    def __init__(self, *args, **kwargs):
-        super(UserChangeForm, self).__init__(*args, **kwargs)
-        f = self.fields.get('user_permissions', None)
-        if f is not None:
-            f.queryset = f.queryset.select_related('content_type')
-
-    def clean_password(self):
-        return self.initial["password"]
+    def clean_new_password2(self):
+        password1 = self.cleaned_data.get('new_password1')
+        password2 = self.cleaned_data.get('new_password2')
+        if password1 and password2:
+            if password1 != password2:
+                raise forms.ValidationError(
+                    self.error_messages['password_mismatch'],
+                    code='password_mismatch',
+                    )
+        return password2

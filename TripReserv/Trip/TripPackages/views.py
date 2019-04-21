@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 # Create your views here.
 from . models import City , Place
 from django.contrib.auth import authenticate, login , logout , get_user_model
-from CustomUser.forms import RegisterForm , LoginForm , UserChangeForm
+from CustomUser.forms import RegisterForm , LoginForm , SetPasswordForm
 from django.utils.http import is_safe_url
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
@@ -16,6 +16,10 @@ from CustomUser.tokens import account_activation_token
 from django.urls import reverse
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
+
+#reset pass 
+from django.views.generic import *
+
 
 def Home_view (request):
     cities = City.objects.all()
@@ -45,6 +49,7 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
+                request.session.set_expiry(10)
                 return redirect('Home_view')
 
     return redirect('Home_view')
@@ -55,18 +60,18 @@ def logout_user(request):
 
 def login_page(request):
     form = LoginForm(request.POST or None)
-    context = {
-        "form": form
-    }
     next_ = request.GET.get('next')
     next_post = request.POST.get('next')
     redirect_path = next_ or next_post or None
     if form.is_valid():
         email  = form.cleaned_data.get("email")
         password  = form.cleaned_data.get("password")
+        remember_me = request.POST.get('remember_me')
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
+            if not remember_me:
+                request.session.set_expiry(0)
             try:
                 del request.session['guest_email_id']
             except:
@@ -79,6 +84,7 @@ def login_page(request):
                 
         
     messages.error(request,f'invalid email or password ,try again!')
+    
     return redirect(redirect_path,{'messages':messages})  
 
 User = get_user_model()
@@ -93,7 +99,7 @@ def signUp(request):
         ####
         user = form.save(commit=False)
         current_site = get_current_site(request)
-        mail_subject = 'Activate your blog account.'
+        mail_subject = 'Activate your AmieGoo! account.'
         message = render_to_string('accounts/acc_active_email.html', {
             'user': user,
             'domain': current_site.domain,
@@ -117,7 +123,7 @@ def signUp(request):
             messages.error(request,f'Account is not created!')
             return redirect("/",{'messages':messages})
 
-    messages.error(request,f'Account is not created!')
+    messages.error(request,f'This email address is already in use')
     return redirect(redirect_path,{'messages':messages})    
 
 
@@ -186,28 +192,64 @@ def password_reset(request):
         messages.error(request,f'Try Again')
     return redirect(redirect_path,{'messages':messages})    
     
-def password_reset_confirm (request, uidb64=None, token=None):
-    if request.user.is_authenticated:
-        return redirect('Home_view')
-    else:
+
+# def password_reset_confirm (request, uidb64=None, token=None):
+#     if request.user.is_authenticated:
+#         return redirect('Home_view')
+#     else:
+#         try:
+#             uid = force_text(urlsafe_base64_decode(uidb64))
+#             user = User.objects.get(pk=uid)
+            
+#         except User.DoesNotExist:
+#             user = None
+#         if user and account_activation_token.check_token(user, token):
+#             context = {
+#                     'email': user.email,
+#                     'full_name': user.full_name, 
+#                 }
+#             form = UserChangeForm(request.POST or None, request.FILES or None, initial=context)
+            
+#             if form.is_valid():
+#                 password1 = form.cleaned_data.get("password1")
+#                 password2 = form.cleaned_data.get("password2")
+#                 form.save()
+
+#         return render(request, 'accounts/acc_reset_pass.html',
+
+
+class PasswordResetConfirmView(FormView):
+    template_name = "accounts/acc_reset_pass.html"
+    success_url = '/'
+    form_class = SetPasswordForm
+
+    def post(self, request, uidb64=None, token=None, *arg, **kwargs):
+        """
+        View that checks the hash in a password reset link and presents a
+        form for entering a new password.
+        """
+        UserModel = get_user_model()
+        form = self.form_class(request.POST)
+        assert uidb64 is not None and token is not None  # checked by URLconf
         try:
-            uid = force_text(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-        except User.DoesNotExist:
+            uid = urlsafe_base64_decode(uidb64)
+            user = UserModel._default_manager.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
             user = None
-        if user and account_activation_token.check_token(user, token):
-            context = {
-                    'email': user.email,
-                    'full_name': user.full_name, 
-                    'password1': user.password1,
-                    'password2': user.password2
-                }
-            form = UserChangeForm(request.POST or None, request.FILES or None, initial=context)
+
+        if user is not None and account_activation_token.check_token(user, token):
             if form.is_valid():
-                form.save()
-
-        return render(request, 'TripPackages/accounts/acc_reset_pass',
-         {'form': form, 'user': user})
-
+                new_password= form.cleaned_data['new_password2']
+                user.set_password(new_password)
+                user.save()
+                messages.success(request, 'Password has been reset.')
+                return self.form_valid(form)
+            else:
+                messages.error(request, 'Password reset has not been unsuccessful.')
+                return self.form_invalid(form)
+        else:
+            messages.error(request,'The reset password link is no longer valid.')
+            return redirect("/",{'messages':messages})
+              
 
     

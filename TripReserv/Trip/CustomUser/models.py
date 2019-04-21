@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
             full_name = full_name
         )
         user.set_password(password)
-       
+        
         user.admin = is_admin
         user.staff = is_staff
         user.active = is_active
