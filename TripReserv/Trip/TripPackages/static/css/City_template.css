@@ -50,8 +50,9 @@ body {
 .content img {
     margin-bottom: 20px;
 }
-.hide{display: none;}
-
+.hide{
+    display: none;
+}
 .separator {
     height: 3px;
     width: 90%;

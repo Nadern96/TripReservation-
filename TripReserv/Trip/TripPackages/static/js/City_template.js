@@ -7,13 +7,26 @@
         $(this).parent().find(".fas").removeClass("fa-plus").addClass("fa-minus");
     }).on('hide.bs.collapse', function(){
         $(this).parent().find(".fas").removeClass("fa-minus").addClass("fa-plus");
+
+        $(this).find(".content").each(
+            function(){
+                $(this).slideUp(700);
+                var linktext = $(this).parent().find(".link").html();
+                console.log(linktext);
+                if(linktext == "Show more")
+                    $(this).parent().find(".link").html("Show less");
+                else
+                    $(this).parent().find(".link").html("Show more");
+
+            }
+        );
     });
 
 
     $(".link").click(function () {
 
-        $(this).siblings(".hide").slideToggle(1000);
-
+        // $(this).siblings(".content").toggleClass("hide",1000);
+        $(this).siblings(".content").slideToggle(700);
         var linktext = $(this).html();
         if(linktext == "Show more")
             $(this).html("Show less");
