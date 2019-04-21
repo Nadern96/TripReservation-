@@ -86,22 +86,22 @@ function change_filter(button) {
         if(button.id === "relaxation" || button.id === "relaxation_mobile")
         {
             relaxation = true;
-            trip_type +="relaxation/";
+            trip_type +="Relaxation-";
         }
         else if(button.id === "historical" || button.id === "historical_mobile")
         {
             historical = true;
-            trip_type +="historical/";
+            trip_type +="Historical-";
         }
         else if(button.id === "culture" || button.id === "culture_mobile")
         {
             culture = true;
-            trip_type +="local_culture/";
+            trip_type +="Local Culture-";
         }
         else if(button.id === "cuisine" || button.id === "cuisine_mobile")
         {
             cuisine = true;
-            trip_type +="local_cuisine/";
+            trip_type +="Local Cuisine-";
         }
     }
     else
@@ -113,22 +113,22 @@ function change_filter(button) {
         if(button.id === "relaxation" || button.id === "relaxation_mobile")
         {
             relaxation = false;
-            trip_type =trip_type.replace("relaxation/", "");
+            trip_type =trip_type.replace("Relaxation-", "");
         }
         else if(button.id === "historical" || button.id === "historical_mobile")
         {
             historical = false;
-            trip_type =trip_type.replace("historical/", "");
+            trip_type =trip_type.replace("Historical-", "");
         }
         else if(button.id === "culture" || button.id === "culture_mobile")
         {
             culture = false;
-            trip_type =trip_type.replace("local_culture/", "");
+            trip_type =trip_type.replace("Local Culture-", "");
         }
         else if(button.id === "cuisine" || button.id === "cuisine_mobile")
         {
             cuisine = false;
-            trip_type =trip_type.replace("local_cuisine/", "");
+            trip_type =trip_type.replace("Local Cuisine-", "");
         }
     }
 
@@ -359,7 +359,9 @@ function nextPrev(n) {
         if(document.getElementById('next').innerHTML === "Send Request"){
             submitting = true;
             document.getElementsByClassName("step")[currentTab].className += " finish";
+            trip_type = trip_type.substr(0,trip_type.length-1);
             document.getElementById('trip_type').value = trip_type;
+            about_trip = about_trip.substr(0,about_trip.length-1);
             document.getElementById('about_trip').value = about_trip;
             document.getElementById('country_complete').value = $('#address-country').find(":selected").text();
             $("input[name=csrfmiddlewaretoken]").val(getCookie('csrftoken'));   
@@ -368,7 +370,9 @@ function nextPrev(n) {
         else if(document.getElementById('next').innerHTML === "Sign Up and Send Request"){
             submitting = true;
             document.getElementsByClassName("step")[currentTab].className += " finish";
+            trip_type = trip_type.substr(0,trip_type.length-1);
             document.getElementById('trip_type').value = trip_type;
+            about_trip = about_trip.substr(0,about_trip.length-1);
             document.getElementById('about_trip').value = about_trip;
             document.getElementById('country_complete').value = $('#address-country').find(":selected").text();
             $("input[name=csrfmiddlewaretoken]").val(getCookie('csrftoken'));   
@@ -378,7 +382,9 @@ function nextPrev(n) {
     else if(currentTab===2 && n===1 && authenticated && isValid()){
         submitting = true;
         document.getElementsByClassName("step")[currentTab].className += " finish";
+        trip_type = trip_type.substr(0,trip_type.length-1);
         document.getElementById('trip_type').value = trip_type;
+        about_trip = about_trip.substr(0,about_trip.length-1);
         document.getElementById('about_trip').value = about_trip;
         document.getElementById('country_complete').value = $('#address-country').find(":selected").text();
         document.forms['design_form'].submit();
@@ -663,9 +669,9 @@ $( document ).ready(function() {
         document.getElementById('about_trip_question_error_mobile').style.display = 'none';
     }
     if(pressed_checkbox.checked)
-        about_trip += pressed_checkbox.value+"/";
+        about_trip += pressed_checkbox.value+"-";
     else
-        about_trip = about_trip.replace(pressed_checkbox.value+"/","");
+        about_trip = about_trip.replace(pressed_checkbox.value+"-","");
  }
 
  function budget_error(){

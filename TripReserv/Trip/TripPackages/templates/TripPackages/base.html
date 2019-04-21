@@ -66,6 +66,7 @@
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-user "></i> {{ user.get_full_name }}</a>
                             <div class="dropdown-menu">
+                                <a class="dropdown-item"  style="text-decoration:none;" href="{% url 'profile_render' user.id   %}"><span style="color:#4ac0d6">Profile</span></a>
                                 <a class="dropdown-item"  style="text-decoration:none;" href="{% url 'logout_user' %}"><span style="color:#4ac0d6">logout</span></a>
                             </div>
                         </li>
@@ -171,7 +172,7 @@
             </section>
         </form>
 
-        <form id="reset-pass" style="display: none"  method="POST" role="form" action="" enctype="multipart/form-data" >
+        <form id="reset-pass" style="display: none"  method="POST" role="form" action="{% url 'password_reset' %}" enctype="multipart/form-data" >
             {% csrf_token %}
 
             <!--After you processed your form you can redirect to the value of this path.-->

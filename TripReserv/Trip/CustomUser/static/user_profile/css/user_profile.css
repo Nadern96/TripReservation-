@@ -1,0 +1,14 @@
+a{
+    text-decoration: none !important; 
+}
+.card_button{
+    margin-bottom: 15px !important;
+}
+
+.full_div{
+    display: none;
+}
+
+.hidden_inputs{
+    display: none;
+}
