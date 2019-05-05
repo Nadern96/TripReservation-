@@ -11,7 +11,8 @@ urlpatterns = [
 
     path('', views.Home_view, name = "Home_view"),
     path('cities/<city>/', views.city_view, name='city_view'),
-    path('loginUser', views.login_user , name='login_user'),
+    path('about_us/', views.about_us, name='about_us'),
+    #path('loginUser', views.login_user , name='login_user'),
     path('logout_user', views.logout_user , name='logout_user'),
     
     path('signUp', views.signUp , name='signUp'),
@@ -26,7 +27,7 @@ urlpatterns = [
 
     url(r'^account/reset_password_confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', PasswordResetConfirmView.as_view(),name='reset_password_confirm'),
 
-  
+    path('addSubUser',views.addSubUser.as_view() , name='addSubUser'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

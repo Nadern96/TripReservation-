@@ -1,0 +1,65 @@
+{% extends 'TripPackages/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/About_us.css' %}">
+    <div class="about-img">
+        <img src="{% static "images/about_us/about_us.jpg" %}" class="img-fluid" alt="Responsive image">
+    </div>
+<div class = "container-fluid about_us">
+    <div class="carousel-caption  d-md-block">
+            <div class="title-over-caption">
+                Discover
+                <span class="dots dots-yellow"></span>
+                Customise
+                <span class="dots dots-green"></span>
+                Travel
+                <span class="dots dots-indigo"></span>
+            </div>
+            <h1>Come, visit and enjoy Egypt in a different way </h1>
+    </div>
+     
+    <div class="row cards">
+        <div class="col-xl-3 offset-xl-1 col-lg-6 col-md-6 col-sm-12 col-12 ">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Who We Are</h3>
+                    <p class="card-text">
+                        Amie-Goo! is a platform that gives you real experience through locals from all over Egypt,
+                        our job is to provide the tools, resources, 
+                       and guarantees to revolutionize the way people travel and to have some fun doing it
+                    </p>          
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Our Agents</h3>
+                    <p class="card-text">
+                         Our partner agents know their destination better than anyone else,
+                        and are passionate about sharing it with travelers. As well as customizing your trip, they'll be available to help 24/7 while you're abroad.
+                    </p>          
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Our Vision</h3>
+                    <p class="card-text">
+                        Our vision is to help you see Egypt from our eyes, So we will help you to take a different creative tour , eat local foods , have local drinks and visit different historic places in a creative way with different languages. 
+                    </p>          
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="row">
+        	&copy; AmièGoo!  All Rights Reserved. 
+    </footer>
+</div>
+ 
+{% endblock %}

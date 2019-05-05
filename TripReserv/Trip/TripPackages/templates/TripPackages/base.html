@@ -48,7 +48,7 @@
                       </div>
                    </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
+                    <a class="nav-link" href="{% url 'about_us'%}">About Us</a>
                   </li>
                 </ul>
 
@@ -124,7 +124,10 @@
         </form>
 
 
-        <form id="sign-up" style="display: none" method="POST" role="form" action="{% url 'signUp'%}" enctype="multipart/form-data" >
+        <form id="sign-up" style="display: none" method="POST" role="form" 
+                            onsubmit = "return validate_form ('sign-up','password1','password2','signUp-error')" 
+                            action="{% url 'signUp'%}"
+                             enctype="multipart/form-data" >
             {% csrf_token %}
              
             <!--After you processed your form you can redirect to the value of this path.-->
@@ -140,27 +143,27 @@
             <p class="error" id="signUp-error"></p>
             <fieldset>
                 <section>
-                    <input type="text" name="full_name" placeholder="Full name" required>
+                    <input type="text" name="full_name" id="full_name" placeholder="Full name" required>
                     <i class="fas fa-user"></i>
                 </section>
 
                 <section>
-                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="email" name="email" id="email" placeholder="Email" required>
                     <i class="fas fa-user"></i>
                 </section>
 
                 <section>
-                    <input type="password" id="password1" name="password1" placeholder="Password" required>
+                    <input type="password" id="password1" id="password1" name="password1" placeholder="Password" required>
                     <i class="fas fa-lock"></i>
                 </section>
 
                 <section>
-                    <input type="password" id="password2" name="password2" placeholder="Confirm Password" required>
+                    <input type="password" id="password2" id="password2" name="password2" placeholder="Confirm Password" required>
                     <i class="fas fa-lock"></i>
                 </section>
             </fieldset>
-            <input  class="sign-up-submit" type="button"        
-                    onclick="validate_form ('sign-up','password1','password2','signUp-error')"  
+            <input  class="sign-up-submit" type="submit"        
+                      
                      value="Create account">
             <section  class="createAcc">
                <span style="color: white">Already a member?</span>
@@ -185,7 +188,7 @@
             
             <fieldset>
                 <section>
-                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="email" name="email" id="email" placeholder="Email" required>
                     <i class="fas fa-user"></i>
                 </section>
             </fieldset>
@@ -204,7 +207,7 @@
    
     {% block body %}
     {% endblock %}
-
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src = "{% static "js/base.js" %}">   </script>
     

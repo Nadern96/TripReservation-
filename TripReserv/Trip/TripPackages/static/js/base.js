@@ -61,22 +61,13 @@ function validate_form (form , pass1 , pass2 , error){
         document.getElementById(error).innerHTML = "Passwords Don't Match";
         return false;
     }
-    form.submit();
+    
     console.log("valid");
     
     return true;
 
 }
-function pswderr() {
-    var pswd1 = document.getElementById("newuserpswd").value;
-    var pswd2 = document.getElementById("rptpswd").value;
-    if (pswd1 !== pswd2) {
-        document.getElementById("alarm").innerHTML = "Password and password verification do not match. Retry";
-        return false;
-    } else {document.getElementById("alarm").innerHTML = "";
-        return true;
-        }
-}
+
 /************ To make alert message disappear after ***********/
 setTimeout(function(){$('.alert').fadeOut();}, 15000);
 

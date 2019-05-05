@@ -1,0 +1,110 @@
+/*.container-fluid.about_us {height: 600px;}*/
+.title-over-caption{
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+
+.dots,.dots::before,.dots::after {
+    width: 4px;
+    height: 4px;
+    display: inline-block;
+    content: '';
+    border-radius: 50%;
+}
+.dots{
+    margin-right: 24px;
+    margin-left:  5px;
+}
+.dots::before {
+    margin-left: 8px;
+    position: absolute;
+}
+.dots::after {
+    margin-left: 16px;
+    position: absolute;
+}
+.dots-yellow,.dots-yellow::before,.dots-yellow::after{background-color:#FDB81B;}
+.dots-indigo,.dots-indigo::before,.dots-indigos::after{background-color: #00BFD6;}
+.dots-green,.dots-green::before,.dots-green::after {background-color: #11726B;}
+
+.carousel-caption {
+    z-index: 0;
+    position: absolute;
+    top: 250px;
+    left: 150px;
+    text-align: left;
+    color: white;
+    border-left : 2px dotted #ffffff;
+    padding-left: 30px;
+    max-height: 250px;
+}
+.carousel-caption h1{
+    font-size: 60px;
+    font-family: 'Oswald', sans-serif;
+}
+
+.about-img {
+    margin-bottom: 50px;
+}
+.row .card {
+    min-height: 325px;
+}
+.row .card .card-title {
+    font-size: 30px;
+    line-height: 24px;
+    margin: 30px 0 15px;
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+}
+.row .card .card-text {
+    font-family: 'Roboto', sans-serif;
+}
+.cards { 
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+.cards .card{margin-bottom: 30px;}
+footer {
+    background-color: #343A40;
+    font-size: 20px;
+    color: #FFFFFF;
+    padding: 20px;
+    padding-left: 60px;
+}
+
+
+
+@media (max-width:992px ){
+    .carousel-caption {
+        position: absolute;
+        top: 150px;
+        left: 100px;
+        text-align: left;
+        color: white;
+        max-height: 200px;
+    }
+    .carousel-caption h1 {
+        font-size: 38px;
+        font-family: 'Oswald', sans-serif;
+    }
+}
+
+
+@media (max-width:768px) {
+    .carousel-caption{
+        position: static;
+        display: block;
+        max-height: 150px;
+        color: black;
+        z-index: 0;
+        margin-bottom: 50px;
+        margin-left: 10px;
+        padding-left: 0;
+    }
+    .carousel-caption h1 {
+        font-size: 32px;
+        font-family: 'Oswald', sans-serif;
+        
+    }
+}
+

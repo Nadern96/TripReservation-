@@ -231,7 +231,7 @@ body {
     width: 100%;
 }
 .subscribe #email {
-    padding: 15px 20px 18px 40px;
+    padding: 15px 20px 20px 40px;
     border-radius: 3px;
     border: 1px solid #0069D9;
     width: 50%;
@@ -239,7 +239,7 @@ body {
     text-align: left;
 }
 .subscribe input[type = 'submit'] {
-    height: 62px;
+    height: 64px;
     width: 120px;
     margin: 0;
     margin-left:-10px;
@@ -247,7 +247,7 @@ body {
     border-radius: 0;
     border-top-right-radius:5px ;
     border-bottom-right-radius:5px ;
-    border: 1px solid #4AC0D6;
+    
 }
 .subscribe .checkbox{
     margin-top: 10px;

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 # Create your views here.
-from . models import City , Place
+from . models import City , Place , Subscribed_user
 from django.contrib.auth import authenticate, login , logout , get_user_model
 from CustomUser.forms import RegisterForm , LoginForm , SetPasswordForm
 from django.utils.http import is_safe_url
@@ -19,6 +19,9 @@ from django.core.mail import EmailMessage
 
 #reset pass 
 from django.views.generic import *
+
+#for addSubUSer
+from django.urls import reverse_lazy
 
 
 def Home_view (request):
@@ -39,20 +42,26 @@ def city_view (request,city):
         "city" : city,
      }
     return render(request, 'TripPackages/City_template.html',context)
+def about_us (request):
+    cities = City.objects.all()
+    context = {
+        'cities': cities
+    }
+    return render(request, 'TripPackages/About_us.html', context)
 
-def login_user(request):
+# def login_user(request):
 
-    if request.method == "POST":
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(email=email, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                request.session.set_expiry(10)
-                return redirect('Home_view')
+#     if request.method == "POST":
+#         email = request.POST['email']
+#         password = request.POST['password']
+#         user = authenticate(email=email, password=password)
+#         if user is not None:
+#             if user.is_active:
+#                 login(request, user)
+#                 request.session.set_expiry(10)
+#                 return redirect('Home_view')
 
-    return redirect('Home_view')
+#     return redirect('Home_view')
 
 def logout_user(request):
     logout(request)
@@ -193,31 +202,6 @@ def password_reset(request):
     return redirect(redirect_path,{'messages':messages})    
     
 
-# def password_reset_confirm (request, uidb64=None, token=None):
-#     if request.user.is_authenticated:
-#         return redirect('Home_view')
-#     else:
-#         try:
-#             uid = force_text(urlsafe_base64_decode(uidb64))
-#             user = User.objects.get(pk=uid)
-            
-#         except User.DoesNotExist:
-#             user = None
-#         if user and account_activation_token.check_token(user, token):
-#             context = {
-#                     'email': user.email,
-#                     'full_name': user.full_name, 
-#                 }
-#             form = UserChangeForm(request.POST or None, request.FILES or None, initial=context)
-            
-#             if form.is_valid():
-#                 password1 = form.cleaned_data.get("password1")
-#                 password2 = form.cleaned_data.get("password2")
-#                 form.save()
-
-#         return render(request, 'accounts/acc_reset_pass.html',
-
-
 class PasswordResetConfirmView(FormView):
     template_name = "accounts/acc_reset_pass.html"
     success_url = '/'
@@ -252,4 +236,10 @@ class PasswordResetConfirmView(FormView):
             return redirect("/",{'messages':messages})
               
 
+    
+class addSubUser(CreateView):
+    model = Subscribed_user
+    fields = ['email']
+
+    success_url =reverse_lazy('Home_view')
     

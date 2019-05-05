@@ -164,7 +164,7 @@
         <h2>Subscribe to receive our trip ideas and travel offers!</h2>
 {#        <p>You have successfully subscribed to Evaneos' newsletter! Keep an eye open on your inbox for local tips, travel inspiration, and exclusive offers</p>#}
 
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" role="form" action="{% url 'addSubUser'%}" enctype="multipart/form-data" >
              {% csrf_token %}
             <input type="email" name="email" id="email" placeholder="Enter your email address..." required>
             <input type="submit"  class="btn btn-lg btn-primary " value="Subscribe">

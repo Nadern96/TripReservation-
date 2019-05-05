@@ -3,7 +3,9 @@
 {% block body %}
    
     <div class="modal" style = "display:block">
-        <form method="POST" id="reset-conf" role="form" action="" enctype="multipart/form-data" >
+        <form method="POST" id="reset-conf" role="form" 
+                            onsubmit = "return validate_form ('reset-conf','new_password1','new_password2','reset-error')"
+                            action="" enctype="multipart/form-data" >
                 {% csrf_token %}
 
                 <!--After you processed your form you can redirect to the value of this path.-->
@@ -27,9 +29,7 @@
                         <i class="fas fa-lock"></i>
                     </section>
                 </fieldset>
-                <input  type="button"  
-                        onclick="validate_form ('reset-conf','new_password1','new_password2','reset-error')"  
-                        value="Change Password">   
+                <input  type="submit"  value="Change Password">   
                 
                         
         </form>
